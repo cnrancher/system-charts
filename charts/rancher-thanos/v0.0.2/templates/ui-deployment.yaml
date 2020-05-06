@@ -34,7 +34,11 @@ spec:
           - name: API_TOKEN
             value: "{{ .Values.apiToken }}"
           - name: SERVER_URL
+            {{- if .Values.grpcProxyUrl }}
+            value: "http://rancher.cattle-system"
+            {{- else }}
             value: "https://{{ .Values.rancherHost }}"
+            {{- end }}
           - name: THANOS_URL
             value: "http://access-thanos"
   {{- if .Values.ui.title }}
