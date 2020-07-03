@@ -75,6 +75,9 @@ spec:
         - name: grafana-provisionings
           mountPath: /etc/grafana/provisioning/datasources/all.yaml
           subPath: datasources.yaml
+        - name: grafana-provisionings
+          mountPath: /etc/grafana/grafana.ini
+          subPath: grafana.ini
         ports:
         - name: web
           containerPort: 3000
