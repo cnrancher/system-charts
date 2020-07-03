@@ -256,8 +256,8 @@ grafana:
     repository: rancher/grafana-grafana
     tag: 6.7.4
     tool:
-      repository: rancher/prometheus-auth
-      tag: v0.2.0
+      repository: micheliac/prometheus-auth #TODO update image
+      tag: v0.1.1
     proxy:
       repository: rancher/nginx
       tag: 1.17.4-alpine
@@ -316,8 +316,8 @@ prometheus:
     repository: rancher/prom-prometheus
     tag: v2.17.2
     auth:
-      repository: rancher/prometheus-auth
-      tag: v0.2.0
+      repository: micheliac/prometheus-auth #todo
+      tag: v0.1.1
     proxy:
       repository: rancher/nginx
       tag: 1.17.4-alpine
