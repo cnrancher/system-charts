@@ -72,6 +72,7 @@ rules:
   - "networking.k8s.io"
   resources:
   - ingresses
+  - networkpolicies
   verbs:
   - "list"
   - "watch"
@@ -86,7 +87,16 @@ rules:
   - "storage.k8s.io"
   resources:
     - storageclasses
+    - volumeattachments
   verbs: 
+  - "list"
+  - "watch"
+- apiGroups:
+  - "admissionregistration.k8s.io"
+  resources:
+  - validatingwebhookconfigurations
+  - mutatingwebhookconfigurations
+  verbs:
   - "list"
   - "watch"
 
