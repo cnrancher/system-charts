@@ -27,6 +27,9 @@ data:
         url: {{ .Values.dashboard.grafanaURL }}
       prometheus:
         url: {{ .Values.prometheusAddr }}
+        auth:
+          type: {{ .Values.prometheusAuthType }}
+          use_kiali_token: {{ .Values.prometheusAuthUseKialiToken }}
 {{- if .Values.security.enabled }}
     identity:
       cert_file: {{ .Values.security.cert_file }}
