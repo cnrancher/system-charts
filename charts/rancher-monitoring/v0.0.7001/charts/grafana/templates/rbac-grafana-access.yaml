@@ -1,0 +1,39 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: access-grafana
+  namespace: cattle-prometheus
+rules:
+- apiGroups:
+  - v1
+  resourceNames:
+  - cattle-prometheus
+  resources:
+  - namespaces
+  verbs:
+  - get
+- apiGroups:
+  - '*'
+  resourceNames:
+  - http:access-grafana:80
+  resources:
+  - services
+  - services/proxy
+  - endpoints
+  verbs:
+  - get
+  - create
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: access-grafana
+  namespace: cattle-prometheus
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: access-grafana
+subjects:
+- kind: Group
+  name: system:authenticated
+  apiGroup: rbac.authorization.k8s.io

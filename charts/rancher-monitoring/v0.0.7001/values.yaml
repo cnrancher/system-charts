@@ -261,13 +261,6 @@ grafana:
       tag: 1.17.4-alpine
   nodeSelectors: []
   resources:
-    inits:
-      limits:
-        memory: 50Mi
-        cpu: 50m
-      requests:
-        memory: 50Mi
-        cpu: 50m
     core:
       limits:
         memory: 200Mi
@@ -307,6 +300,10 @@ prometheus:
       valueFrom:
         fieldRef:
           fieldPath: status.podIP
+    - name: MONITORING_NAMESPACE
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.namespace
   apiGroup: "monitoring.coreos.com"
   image:
     repository: rancher/prom-prometheus
@@ -354,10 +351,12 @@ prometheus:
   ## Override the default generated ServiceAccount name
   ##
   serviceAccountNameOverride: ""
-  ruleNamespaceSelector: {}
+  ruleNamespaceSelector:
+    matchExpressions: []
   ruleSelector:
     matchExpressions: []
-  serviceMonitorNamespaceSelector: {}
+  serviceMonitorNamespaceSelector:
+    matchExpressions: []
   serviceMonitorSelector:
     matchExpressions: []
   securityContext:

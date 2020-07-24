@@ -30,13 +30,6 @@ storageSpec: {}
 ## Resource limits & requests
 ## Ref: https://kubernetes.io/docs/user-guide/compute-resources/
 resources:
-  inits:
-    limits:
-      memory: 50Mi
-      cpu: 50m
-    requests:
-      memory: 50Mi
-      cpu: 50m
   core:
     limits:
       memory: 200Mi
