@@ -254,8 +254,8 @@ grafana:
     repository: rancher/grafana-grafana
     tag: 6.3.6
     tool:
-      repository: rancher/prometheus-auth
-      tag: v0.2.0
+      repository: cnrancher/prometheus-auth
+      tag: v0.3.3
     proxy:
       repository: rancher/nginx
       tag: 1.17.4-alpine
@@ -309,8 +309,8 @@ prometheus:
     repository: rancher/prom-prometheus
     tag: v2.11.1
     auth:
-      repository: rancher/prometheus-auth
-      tag: v0.2.0
+      repository: cnrancher/prometheus-auth
+      tag: v0.3.3
     proxy:
       repository: rancher/nginx
       tag: 1.17.4-alpine
