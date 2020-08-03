@@ -407,3 +407,13 @@ webhook-receiver:
   image:
     repository: "cnrancher/webhook-receiver"
     tag: v0.2.4-ent
+
+exporter-gpu-node:
+  enabled: false
+  image:
+    nodeexporter:
+      repository: rancher/prom-node-exporter
+      tag: v0.17.0
+    dcgmexporter:
+      repository: cnrancher/dcgm-exporter
+      tag: 1.4.6
