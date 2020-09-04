@@ -70,6 +70,8 @@ dashboard:
   jaegerURL:  # If you have Jaeger installed and it is accessible to client browsers, then set this property to its external URL. Kiali will redirect users to this URL when Jaeger tracing is to be shown.
   jaegerInClusterURL: "http://tracing/jaeger" # If you have Jaeger installed and accessible from Kiali pod (typically in cluster), then set this property to enable more tracing charts within Kiali.
 prometheusAddr: http://prometheus:9090
+prometheusAuthType: bearer
+prometheusAuthUseKialiToken: true
 
 # When true, a secret will be created with a default username and password. Useful for demos.
 createDemoSecret: false
