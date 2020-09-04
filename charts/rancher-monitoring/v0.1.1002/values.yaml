@@ -256,20 +256,13 @@ grafana:
     repository: rancher/grafana-grafana
     tag: 6.7.4
     tool:
-      repository: rancher/prometheus-auth
-      tag: v0.2.0
+      repository: cnrancher/prometheus-auth
+      tag: v0.3.3
     proxy:
       repository: rancher/nginx
       tag: 1.17.4-alpine
   nodeSelectors: []
   resources:
-    inits:
-      limits:
-        memory: 50Mi
-        cpu: 50m
-      requests:
-        memory: 50Mi
-        cpu: 50m
     core:
       limits:
         memory: 200Mi
@@ -311,13 +304,17 @@ prometheus:
       valueFrom:
         fieldRef:
           fieldPath: status.podIP
+    - name: MONITORING_NAMESPACE
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.namespace
   apiGroup: "monitoring.coreos.com"
   image:
     repository: rancher/prom-prometheus
     tag: v2.17.2
     auth:
-      repository: rancher/prometheus-auth
-      tag: v0.2.0
+      repository: cnrancher/prometheus-auth
+      tag: v0.3.3
     proxy:
       repository: rancher/nginx
       tag: 1.17.4-alpine
@@ -358,10 +355,12 @@ prometheus:
   ## Override the default generated ServiceAccount name
   ##
   serviceAccountNameOverride: ""
-  ruleNamespaceSelector: {}
+  ruleNamespaceSelector:
+    matchExpressions: []
   ruleSelector:
     matchExpressions: []
-  serviceMonitorNamespaceSelector: {}
+  serviceMonitorNamespaceSelector:
+    matchExpressions: []
   serviceMonitorSelector:
     matchExpressions: []
   securityContext:
