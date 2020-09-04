@@ -53,6 +53,11 @@ spec:
 {{ toYaml .Values.auth.env | indent 6 }}
     {{- end }}
     image: {{ template "system_default_registry" . }}{{ .Values.image.auth.repository }}:{{ .Values.image.auth.tag }}
+    {{- if and .Values.resources .Values.resources.auth }}
+    resources:
+{{ toYaml .Values.resources.auth | indent 6 }}
+    {{- end }}
+  - name: prometheus
     ports:
     - containerPort: 9090
       name: web
@@ -61,10 +66,6 @@ spec:
 {{ merge .Values.livenessProbe .Values.defaultLivenessProbe | toYaml | indent 6 }}
     readinessProbe:
 {{ merge .Values.readinessProbe .Values.defaultReadinessProbe | toYaml | indent 6 }}
-    {{- if and .Values.resources .Values.resources.auth }}
-    resources:
-{{ toYaml .Values.resources.auth | indent 6 }}
-    {{- end }}
   listenLocal: true
 {{- end }}
   podMetadata:
