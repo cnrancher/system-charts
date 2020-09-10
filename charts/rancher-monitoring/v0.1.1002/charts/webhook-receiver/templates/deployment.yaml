@@ -43,6 +43,8 @@ spec:
         volumeMounts:
         - name: config
           mountPath: /etc/webhook-receiver
+        - name: notification
+          mountPath: /etc/webhook-receiver/tmpl
 {{- if .Values.affinity }}
         affinity:
 {{ toYaml .Values.affinity | indent 10 }}
@@ -61,3 +63,9 @@ spec:
       - name: config
         secret:
           secretName: webhook-receiver
+      - name: notification
+        secret:
+          secretName: alertmanager-cluster-alerting
+          items:
+          - key: notification.tmpl
+            path: notification.tmpl
