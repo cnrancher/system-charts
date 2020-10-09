@@ -34,13 +34,26 @@ spec:
           - query
           {{- if .Values.clusterIds }}
           {{- range $clusterId := (split ":" .Values.clusterIds) }}
+        {{- if $.Values.collectAllCluster }}
           - --store
           - "{{ $clusterId }}:80"
+        {{- else }}
+        {{- if contains $clusterId $.Values.expectClusterIds }}
+          - --store
+          - "{{ $clusterId }}:80"
+        {{- end }}
+        {{- end }}
           {{- end }}
           {{- end }}
           {{- if .Values.thanos.store.enabled }}
           - --store
           - thanos-store-{{ .Release.Name }}:10901
+          {{- end }}
+          {{- if .Values.customStoreEndpoints }}
+          {{- range $customStoreEndpoint := .Values.customStoreEndpoints }}
+          - --store
+          - "{{ $customStoreEndpoint }}"
+          {{- end }}
           {{- end }}
           ports:
             - name: http
