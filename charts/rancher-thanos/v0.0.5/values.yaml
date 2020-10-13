@@ -89,6 +89,7 @@ thanos:
     service:
       type: ClusterIP
       port: 80
+    extraArgs: []
 
   
   # Thanos store gateway
@@ -104,6 +105,7 @@ thanos:
     affinity: {}
     nodeSelector: {}
     tolerations: []
+    extraArgs: []
   # Thanos compactor
   compact:
     enabled: false
@@ -117,6 +119,7 @@ thanos:
     affinity: {}
     nodeSelector: {}
     tolerations: []
+    extraArgs: []
 
 
 ui:

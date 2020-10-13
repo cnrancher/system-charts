@@ -42,6 +42,15 @@ spec:
           - --store
           - thanos-store-{{ .Release.Name }}:10901
           {{- end }}
+        {{- range .Values.thanos.query.extraArgs }}
+          {{- $pair := regexSplit "=" . 2 }}
+          {{- if eq 2 (len $pair) }}
+          - {{ (index $pair 0) }}
+          - {{ (index $pair 1) }}
+          {{- else }}
+          - {{ (index $pair 0) }}
+          {{- end }}
+        {{- end }}
           ports:
             - name: http
               containerPort: 10902
