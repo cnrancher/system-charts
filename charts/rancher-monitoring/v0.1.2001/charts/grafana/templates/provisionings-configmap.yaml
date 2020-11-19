@@ -16,7 +16,7 @@ data:
 
     [auth.proxy]
     enabled = true
-    header_name = X-RANCHER-USER
+    header_name = X-Rancher-User
     header_property = username
     auto_sign_up = true
 

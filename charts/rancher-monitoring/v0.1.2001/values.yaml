@@ -257,7 +257,7 @@ grafana:
     tag: 7.1.0
     tool:
       repository: cnrancher/prometheus-auth
-      tag: v0.3.3
+      tag: v0.3.3-ent
     proxy:
       repository: rancher/nginx
       tag: 1.17.4-alpine
@@ -314,7 +314,7 @@ prometheus:
     tag: v2.17.2
     auth:
       repository: cnrancher/prometheus-auth
-      tag: v0.3.3
+      tag: v0.3.3-ent
     proxy:
       repository: rancher/nginx
       tag: 1.17.4-alpine
