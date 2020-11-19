@@ -406,7 +406,7 @@ webhook-receiver:
   enabled: false
   image:
     repository: "cnrancher/webhook-receiver"
-    tag: v0.2.4-ent
+    tag: v0.2.4-ent2
 
 exporter-gpu-node:
   enabled: false
