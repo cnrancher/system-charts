@@ -1,0 +1,16 @@
+partition: ""
+bigip:
+  url: ""
+  username: ""
+  password: ""
+network:
+  type: ""
+  poolMemberType: ""
+  flannelName: ""
+image:
+  repository: "f5networks/k8s-bigip-ctlr"
+  tag: "2.2.3"
+insecure: true
+certsConfigmap: ""
+extraArgs:
+  #key: value
