@@ -76,7 +76,7 @@ spec:
               app: {{ template "app.name" . }}
               alertmanager: {{ .Release.Name }}
   tolerations:
-{{- include "linux-node-tolerations" . | nindent 8 }}
+{{- include "linux-node-tolerations" . | nindent 4 }}
 {{- if .Values.tolerations }}
 {{ toYaml .Values.tolerations | indent 4 }}
 {{- end }}

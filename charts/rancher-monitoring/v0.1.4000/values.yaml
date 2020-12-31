@@ -256,20 +256,13 @@ grafana:
     repository: rancher/grafana-grafana
     tag: 7.1.5
     tool:
-      repository: rancher/prometheus-auth
-      tag: v0.2.1
+      repository: cnrancher/prometheus-auth
+      tag: v0.3.3-ent
     proxy:
       repository: rancher/library-nginx
       tag: 1.19.2-alpine
   nodeSelectors: []
   resources:
-    inits:
-      limits:
-        memory: 50Mi
-        cpu: 50m
-      requests:
-        memory: 50Mi
-        cpu: 50m
     core:
       limits:
         memory: 200Mi
@@ -311,13 +304,17 @@ prometheus:
       valueFrom:
         fieldRef:
           fieldPath: status.podIP
+    - name: MONITORING_NAMESPACE
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.namespace
   apiGroup: "monitoring.coreos.com"
   image:
     repository: rancher/prom-prometheus
     tag: v2.18.2
     auth:
-      repository: rancher/prometheus-auth
-      tag: v0.2.1
+      repository: cnrancher/prometheus-auth
+      tag: v0.3.3-ent
     proxy:
       repository: rancher/library-nginx
       tag: 1.19.2-alpine
@@ -358,10 +355,12 @@ prometheus:
   ## Override the default generated ServiceAccount name
   ##
   serviceAccountNameOverride: ""
-  ruleNamespaceSelector: {}
+  ruleNamespaceSelector: 
+    matchExpressions: []
   ruleSelector:
     matchExpressions: []
-  serviceMonitorNamespaceSelector: {}
+  serviceMonitorNamespaceSelector: 
+    matchExpressions: []
   serviceMonitorSelector:
     matchExpressions: []
   securityContext:
@@ -406,5 +405,15 @@ operator-init:
 webhook-receiver:
   enabled: false
   image:
-    repository: rancher/webhook-receiver
-    tag: v0.2.4
+    repository: "cnrancher/webhook-receiver"
+    tag: v0.2.4-ent2
+
+exporter-gpu-node:
+  enabled: false
+  image:
+    nodeexporter:
+      repository: rancher/prom-node-exporter
+      tag: v0.17.0
+    dcgmexporter:
+      repository: cnrancher/dcgm-exporter
+      tag: 1.4.6
