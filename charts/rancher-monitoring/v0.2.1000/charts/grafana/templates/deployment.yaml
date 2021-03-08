@@ -110,9 +110,13 @@ spec:
         fsGroup: 472
       volumes:
       - name: grafana-storage
-        {{- if or .Values.storageSpec .Values.persistence.enabled }}
+        {{- if .Values.persistence.enabled }}
         persistentVolumeClaim:
+          {{- if .Values.persistence.existingClaim }}
+          claimName: {{ .Values.persistence.existingClaim }}
+          {{- else }}
           claimName: {{ template "app.fullname" . }}
+          {{- end }}
         {{- else }}
         emptyDir: {}
         {{- end }}

@@ -18,14 +18,19 @@ tolerations: []
 #   value: extra-var-value-2
 extraVars:
 
-storageSpec: {}
-#   storageClassName: default
-#   accessModes:
-#     - ReadWriteOnce
-#   resources:
-#     requests:
-#       storage: 2Gi
-#   selector: {}
+persistence:
+  enabled: false
+  storageClass: ""
+  size: 5Gi
+  existingClaim: ""
+  storageSpec: {}
+  #   storageClassName: default
+  #   accessModes:
+  #     - ReadWriteOnce
+  #   resources:
+  #     requests:
+  #       storage: 2Gi
+  #   selector: {}
 
 ## Default readiness probe
 ##
