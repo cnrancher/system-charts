@@ -53,6 +53,11 @@ spec:
 {{ toYaml .Values.auth.env | indent 6 }}
     {{- end }}
     image: {{ template "system_default_registry" . }}{{ .Values.image.auth.repository }}:{{ .Values.image.auth.tag }}
+    {{- if and .Values.resources .Values.resources.auth }}
+    resources:
+{{ toYaml .Values.resources.auth | indent 6 }}
+    {{- end }}
+  - name: prometheus
     ports:
     - containerPort: 9090
       name: web
@@ -61,10 +66,6 @@ spec:
 {{ merge .Values.livenessProbe .Values.defaultLivenessProbe | toYaml | indent 6 }}
     readinessProbe:
 {{ merge .Values.readinessProbe .Values.defaultReadinessProbe | toYaml | indent 6 }}
-    {{- if and .Values.resources .Values.resources.auth }}
-    resources:
-{{ toYaml .Values.resources.auth | indent 6 }}
-    {{- end }}
   listenLocal: true
 {{- end }}
   podMetadata:
@@ -98,9 +99,11 @@ spec:
   thanos: 
     image: {{ template "system_default_registry" . }}{{ .Values.image.thanos.repository }}:{{ .Values.image.thanos.tag }}
     version: {{ .Values.image.thanos.tag }}
+    {{- if .Values.thanos.objectConfig }}
     objectStorageConfig:
       key: thanos.yaml
       name: {{ template "app.thanos.fullname" . }}
+    {{- end }}
 {{- end }}
   nodeSelector:
 {{- include "linux-node-selector" . | nindent 4 }}
@@ -132,8 +135,11 @@ spec:
 {{- if .Values.enabledRBAC }}
   serviceAccountName: {{ default (default (include "app.fullname" .) .Values.serviceAccountName) .Values.serviceAccountNameOverride }}
 {{- end }}
-{{ include "serviceMonitor.namespace.selector" . | indent 2 }}
-{{- if or (.Values.serviceMonitorSelector) (eq .Values.level "project") }}
+{{- if .Values.serviceMonitorNamespaceSelector }}
+  serviceMonitorNamespaceSelector:
+{{ toYaml .Values.serviceMonitorNamespaceSelector | indent 4 }}
+{{- end }}
+{{- if .Values.serviceMonitorSelector }}
   serviceMonitorSelector:
 {{ toYaml .Values.serviceMonitorSelector | indent 4 }}
 {{- end }}
@@ -145,8 +151,14 @@ spec:
   remoteWrite:
 {{ toYaml .Values.remoteWrite | indent 4 }}
 {{- end }}
-{{ include "rule.namespace.selector" . | indent 2}}
-{{ include "rule.selector" . | indent 2 }}
+{{- if .Values.ruleNamespaceSelector }}
+  ruleNamespaceSelector:
+{{ toYaml .Values.ruleNamespaceSelector | indent 4 }}
+{{- end }}
+{{- if .Values.ruleSelector }}
+  ruleSelector:
+{{ toYaml .Values.ruleSelector | indent 4 }}
+{{- end }}
 {{- if or .Values.storageSpec .Values.persistence.enabled }}
   storage:
     volumeClaimTemplate:
