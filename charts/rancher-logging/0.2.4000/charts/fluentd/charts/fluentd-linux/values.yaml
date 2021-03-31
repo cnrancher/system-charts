@@ -2,8 +2,8 @@ nameOverride: fluentd
 labels: {}
 
 image:
-  repository: rancher/fluentd
-  tag: v0.1.24
+  repository: cnrancher/fluentd
+  tag: v0.1.23-ent
   pullPolicy: IfNotPresent
 
 resources: {}
@@ -40,12 +40,13 @@ service:
 
 cluster:
   dockerRoot: /var/lib/docker
-
-service:
-  ports:
-    - name: metric
-      port: 24231
-      targetPort: metric
+  fluentdlog: /var/lib/rancher/fluentd/log
+  customlog: /var/lib/rancher/log-volumes
+  rkelog: /var/lib/rancher/rke/log
+  varlogpods: /var/log/pods
+  varlogcontainers: /var/log/containers
+  custom: /var/lib/rancher/fluentd/etc/config/custom
+  libsystemddir: /usr/lib64
 
 configmapReload:
   name: reloader
