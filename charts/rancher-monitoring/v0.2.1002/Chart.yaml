@@ -7,8 +7,8 @@ maintainers:
 name: rancher-monitoring
 sources:
 - https://github.com/coreos/prometheus-operator
-version: 0.2.0000
-appVersion: 0.2.0000
+version: 0.2.1002
+appVersion: 0.2.1002
 kubeVersion: ">=1.16.0-0"
 home: https://github.com/coreos/prometheus-operator
 keywords:
