@@ -8,6 +8,22 @@ metadata:
     release: {{ .Release.Name }}
   name: {{ template "app.provisionings.fullname" . }}
 data:
+  grafana.ini: |+
+    [users]
+    allow_sign_up = false
+    auto_assign_org = true
+    auto_assign_org_role = Editor
+
+    [auth.proxy]
+    enabled = true
+    header_name = X-Rancher-User
+    header_property = username
+    auto_sign_up = true
+
+    [log.console]
+    level = debug
+
+
   dashboards.yaml: |+
     - name: RANCHER_MONITORING
       orgId: 1
