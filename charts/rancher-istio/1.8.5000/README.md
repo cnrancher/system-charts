@@ -13,13 +13,7 @@ This chart bootstraps all Istio [components](https://istio.io/docs/concepts/what
 This chart can install multiple Istio components as subcharts:
 - ingressgateway
 - egressgateway
-- sidecarInjectorWebhook
-- galley
-- mixer
-- pilot
-- security(citadel)
-- grafana
-- prometheus
+- istiod
 - tracing(jaeger)
 - kiali
 
@@ -28,27 +22,14 @@ To enable or disable each component, change the corresponding `enabled` flag.
 ## Prerequisites
 
 - Kubernetes 1.9 or newer cluster with RBAC (Role-Based Access Control) enabled is required
-- Helm 2.7.2 or newer or alternately the ability to modify RBAC rules is also required
+- Helm 3.1.1 or newer or alternately the ability to modify RBAC rules is also required
 - If you want to enable automatic sidecar injection, Kubernetes 1.9+ with `admissionregistration` API is required, and `kube-apiserver` process must have the `admission-control` flag set with the `MutatingAdmissionWebhook` and `ValidatingAdmissionWebhook` admission controllers added and listed in the correct order.
-- The `istio-init` chart must be run to completion prior to install the `istio` chart.
 
 ## Resources Required
 
 The chart deploys pods that consume minimum resources as specified in the resources configuration parameter.
 
 ## Installing the Chart
-
-1. If a service account has not already been installed for Tiller, install one:
-
-    ```bash
-    $ kubectl apply -f install/kubernetes/helm/helm-service-account.yaml
-    ```
-
-1. Install Tiller on your cluster with the service account:
-
-    ```bash
-    $ helm init --service-account tiller
-    ```
 
 1. Set and create the namespace where Istio was installed:
 
@@ -79,52 +60,16 @@ The chart deploys pods that consume minimum resources as specified in the resour
     EOF
     ```
 
-1. If you are using security mode for Grafana, create the secret first as follows:
-
-    - Encode username, you can change the username to the name as you want:
-
-        ```bash
-        $ echo -n 'admin' | base64
-        YWRtaW4=
-        ```
-
-    - Encode passphrase, you can change the passphrase to the passphrase as you want:
-
-        ```bash
-        $ echo -n '1f2d1e2e67df' | base64
-        MWYyZDFlMmU2N2Rm
-        ```
-
-    - Create secret for Grafana:
-
-        ```bash
-        $ cat <<EOF | kubectl apply -f -
-        apiVersion: v1
-        kind: Secret
-        metadata:
-          name: grafana
-          namespace: $NAMESPACE
-          labels:
-            app: grafana
-        type: Opaque
-        data:
-          username: YWRtaW4=
-          passphrase: MWYyZDFlMmU2N2Rm
-        EOF
-        ```
-
 1. To install the chart with the release name `istio` in namespace $NAMESPACE you defined above:
 
     - With [automatic sidecar injection](https://istio.io/docs/setup/kubernetes/sidecar-injection/#automatic-sidecar-injection) (requires Kubernetes >=1.9.0):
 
         ```bash
-        $ helm install istio --name istio --namespace $NAMESPACE
-        ```
-
-    - Without the sidecar injection webhook:
-
-        ```bash
-        $ helm install istio --name istio --namespace $NAMESPACE --set sidecarInjectorWebhook.enabled=false
+        $ helm install istio 
+                --set global.systemDefaultRegistry="docker.io" \
+                --set global.tag="1.8.5" \
+                --set global.jwtPolicy=first-party-jwt \
+                --namespace $NAMESPACE
         ```
 
 ## Configuration
@@ -139,11 +84,18 @@ Helm charts expose configuration options which are currently in alpha.  The curr
 To uninstall/delete the `istio` release but continue to track the release:
 
 ```bash
-$ helm delete istio
+$ helm delete istio --namespace $NAMESPACE
 ```
 
 To uninstall/delete the `istio` release completely and make its name free for later use:
 
 ```bash
-$ helm delete --purge istio
+$ helm delete --purge istio --namespace $NAMESPACE
+```
+
+To delete CRDs permanently removes any Istio resources you have created in your cluster. To permanently delete Istio CRDs installed in your cluster:
+
+```bash
+$ kubectl get crd | grep --color=never 'istio.io' | awk '{print $1}' \
+    | xargs -n1 kubectl delete crd
 ```
