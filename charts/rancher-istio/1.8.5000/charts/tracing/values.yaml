@@ -29,9 +29,8 @@ podAntiAffinityLabelSelector: []
 podAntiAffinityTermLabelSelector: []
 
 jaeger:
-  hub: docker.io/jaegertracing
-  image: all-in-one
-  tag: 1.16
+  registory: jaegertracing/all-in-one
+  tag: 1.20
   podAnnotations: {}
   memory:
     max_traces: 50000
@@ -43,9 +42,8 @@ jaeger:
 
 
 zipkin:
-  hub: docker.io/openzipkin
-  image: zipkin
-  tag: 2.14.2
+  registory: openzipkin/zipkin-slim
+  tag: 2.21.0
   podAnnotations: {}
   probeStartupDelay: 200
   queryPort: 9411
