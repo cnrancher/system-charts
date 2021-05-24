@@ -17,7 +17,7 @@ base:
 pilot:
   enabled: false
   repository: cnrancher/istio-pilot
-  tag: "1.8.5"
+  tag: "1.8.6"
 
 #
 # gateway configure
@@ -35,9 +35,6 @@ gateways:
   istio-ingressgateway:
     # for compatible: configure enabled here, when user enable gateways, the ingressgateway will be enabled by default
     enabled: true
-    labels:
-      app: istio-ingressgateway
-      istio: ingressgateway
     type: NodePort
 
 #
@@ -141,7 +138,7 @@ global:
 
 
   # Default tag for Istio images.
-  tag: "1.8.5"
+  tag: "1.8.6"
 
   # Specify image pull policy if default behavior isn't desired.
   # Default behavior: latest images will be Always else IfNotPresent.
@@ -202,7 +199,7 @@ global:
 
   proxy:
     repository: cnrancher/istio-proxyv2
-    tag: "1.8.5"
+    tag: "1.8.6"
 
     # This controls the 'policy' in the sidecar injector.
     autoInject: enabled
@@ -270,7 +267,7 @@ global:
   proxy_init:
     # Base name for the proxy_init container, used to configure iptables.
     repository: cnrancher/istio-proxyv2
-    tag: "1.8.5"
+    tag: "1.8.6"
 
     resources:
       limits:

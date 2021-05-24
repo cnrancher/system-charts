@@ -67,7 +67,7 @@ The chart deploys pods that consume minimum resources as specified in the resour
         ```bash
         $ helm install istio 
                 --set global.systemDefaultRegistry="docker.io" \
-                --set global.tag="1.8.5" \
+                --set global.tag="1.8.6" \
                 --set global.jwtPolicy=first-party-jwt \
                 --namespace $NAMESPACE
         ```
