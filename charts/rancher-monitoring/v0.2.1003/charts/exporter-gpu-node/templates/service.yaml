@@ -1,4 +1,3 @@
-{{- if .Values.serviceMonitor.enabled }}
 # Copyright (c) 2020, NVIDIA CORPORATION.  All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,34 +12,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
+apiVersion: v1
+kind: Service
 metadata:
   name: {{ include "dcgm-exporter.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "dcgm-exporter.labels" . | nindent 4 }}
     app.kubernetes.io/component: "dcgm-exporter"
-    {{- if .Values.serviceMonitor.additionalLabels }}
-    {{- toYaml .Values.serviceMonitor.additionalLabels | nindent 4 }}
-    {{- end }}
+  {{- with .Values.service.annotations }}
+  annotations:
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
+  type: {{ .Values.service.type }}
+  ports:
+  - name: "metrics"
+    port: {{ .Values.service.port }}
+    targetPort: {{ .Values.service.port }}
+    protocol: TCP
   selector:
-    matchLabels:
-      {{- include "dcgm-exporter.selectorLabels" . | nindent 6 }}
-      app.kubernetes.io/component: "dcgm-exporter"
-  namespaceSelector:
-    matchNames:
-    - "{{ .Release.Namespace }}"
-  endpoints:
-  - port: "metrics"
-    path: "/metrics"
-    interval: "{{ .Values.serviceMonitor.interval }}"
-    relabelings:
-    - sourceLabels:
-      - __meta_kubernetes_pod_host_ip
-      targetLabel: instance
-      action: replace
-      regex: (.+)
-      replacement: $1
-{{- end -}}
+    {{- include "dcgm-exporter.selectorLabels" . | nindent 4 }}

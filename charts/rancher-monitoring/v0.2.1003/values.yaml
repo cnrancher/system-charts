@@ -408,7 +408,7 @@ webhook-receiver:
     repository: "cnrancher/webhook-receiver"
     tag: v0.2.4-ent2
 
-exporter-gpu-node:
+exporter-gpu-node-v1:
   enabled: false
   image:
     nodeexporter:
@@ -417,3 +417,5 @@ exporter-gpu-node:
     dcgmexporter:
       repository: cnrancher/dcgm-exporter
       tag: 1.4.6
+exporter-gpu-node:
+  enabled: false
