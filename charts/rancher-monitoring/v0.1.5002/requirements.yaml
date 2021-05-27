@@ -88,6 +88,7 @@ dependencies:
     version: 0.0.2
     condition: exporter-gpu-node-v1.enabled
     repository: "file://./charts/exporter-gpu-node-v1/"
+
   - name: exporter-gpu-node
     version: 0.0.1
     condition: exporter-gpu-node.enabled
