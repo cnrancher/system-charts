@@ -138,14 +138,25 @@ spec:
         resources:
 {{ toYaml .Values.configmapReload.resources | indent 10 }}
         volumeMounts:
-          - mountPath: /fluentd/etc/config/custom
-            name: custom
           - mountPath: /fluentd/etc/config/precan
             name: config
           - mountPath: /fluentd/etc/config/entry
             name: entry
           - mountPath: /fluentd/etc/config/ssl
             name: ssl
+        - name: {{ template "fluentd.fullname" . }}-{{ .Values.watcher.name }}
+        image: {{ template "system_default_registry" . }}{{ .Values.watcher.image.repository }}:{{ .Values.watcher.image.tag }}
+        imagePullPolicy: "{{ .Values.watcher.image.pullPolicy }}"
+        args:
+          - ./watcher
+          - -cmd=curl http://127.0.0.1:24444/api/config.reload
+          - -pipe=true
+          - /fluentd/etc/config/custom
+        resources:
+{{ toYaml .Values.watcher.resources | indent 10 }}
+        volumeMounts:
+          - mountPath: /fluentd/etc/config/custom
+            name: custom
       terminationGracePeriodSeconds: 30
       volumes:
       - hostPath:

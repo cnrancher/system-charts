@@ -55,3 +55,11 @@ configmapReload:
     tag: v0.3.0-rancher3
     pullPolicy: IfNotPresent
   resources: {}
+
+watcher:
+  name: watcher
+  image:
+    repository: dockerrrboy/watch
+    tag: v0.1.0
+    pullPolicy: IfNotPresent
+  resources: {} 
