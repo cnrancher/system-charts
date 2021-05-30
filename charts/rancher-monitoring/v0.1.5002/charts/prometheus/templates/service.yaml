@@ -9,11 +9,7 @@ metadata:
     release: {{ .Release.Name }}
     kubernetes.io/cluster-service: "true"
 spec:
-  {{ if .Values.serviceNodePort }}
-  type: NodePort
-  {{ else }}
   type: ClusterIP
-  {{ end }}
   sessionAffinity: ClientIP
   selector:
     app: {{ template "app.name" . }}
@@ -23,9 +19,6 @@ spec:
     - name: nginx-http
       port: 80
       targetPort: nginx-http
-      {{ if and .Values.serviceNodePort .Values.nodePort}}
-      nodePort: {{ .Values.nodePort }}
-      {{ end }}
 
 {{- if .Values.thanos.enabled }} 
 ---

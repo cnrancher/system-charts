@@ -21,7 +21,7 @@ data:
 
     mkdir -p /var/cache/nginx/cache
 
-    {{ if .Values.serviceNodePort }}
+    {{ if .Values.enableAuthToken }}
     token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
     sed "s/REPLACE_PARAM_AUTHORIZATION/Bearer ${token}/g" $srcpath | sed "s/REPLACE_PARAM_IP/${POD_IP}/g" > $dstpath
     {{ else }}
@@ -61,8 +61,12 @@ data:
         gzip_disable    "MSIE [1-6]\.";
 
         proxy_set_header    Host $host;
-        {{ if .Values.serviceNodePort }}
-        proxy_set_header    Authorization "REPLACE_PARAM_AUTHORIZATION";
+        {{ if .Values.enableAuthToken }}
+        set $token $http_authorization;
+        if ($http_x_rancher_user = '') { 
+          set $token "REPLACE_PARAM_AUTHORIZATION"; 
+        }
+        proxy_set_header    Authorization $token;
         {{ end }}
         proxy_pass_header   Authorization;
 
