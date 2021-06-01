@@ -1,0 +1,10 @@
+#
+# addon gateways configuration
+#
+enabled: false
+
+istio-egressgateway:
+  enabled: false
+
+istio-ingressgateway:
+  enabled: false
