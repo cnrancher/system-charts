@@ -12,7 +12,7 @@ keywords:
 name: rancher-istio
 sources:
 - http://github.com/istio/istio
-version: 1.8.6000
+version: 1.8.6001
 helmVersion: helm_v3
 kubeVersion: ">=1.16.0-0"
 dependencies:
