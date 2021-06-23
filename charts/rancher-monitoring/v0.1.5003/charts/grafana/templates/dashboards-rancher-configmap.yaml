@@ -1,0 +1,13 @@
+{{- if eq .Values.global.clusterName "local" }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+  name: {{ template "app.dashboards.rancher-fullname" . }}
+data:
+{{ (.Files.Glob "dashboards/rancher/c_*.json").AsConfig | indent 2 }}
+{{- end }}

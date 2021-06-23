@@ -1,0 +1,28 @@
+{{- if and (eq .Values.global.clusterName "local") (.Values.tokenSecret.name) }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+  name: {{ template "app.fullname" . }}
+  namespace: cattle-system
+spec:
+  endpoints:
+    - port: metrics443
+      targetPort: 443
+      path: "/metrics"
+      scheme: "https"
+      tlsConfig:
+        caFile: "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+        insecureSkipVerify: true
+      bearerTokenSecret:
+        name: {{ template "tokenSecret.name" . }}
+        key: {{ template "tokenSecret.key" . }}
+  selector:
+    matchLabels:
+      app: rancher-metrics
+{{- end }}
