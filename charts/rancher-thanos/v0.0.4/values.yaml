@@ -9,6 +9,9 @@ clusterIds: ""
 rancherHost: ""
 token: ""
 apiToken: ""
+customStoreEndpoints: []
+expectClusterIds: ""
+collectAllCluster: true
 
 
 grpcProxyUrl: ""
