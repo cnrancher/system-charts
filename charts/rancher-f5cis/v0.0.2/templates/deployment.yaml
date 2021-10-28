@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-bigip-ctlr-deployment
+  namespace: {{ .Release.Namespace }}
+  labels:
+    release: {{ .Release.Name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: k8s-bigip-ctlr-deployment
+  template:
+    metadata:
+      labels:
+        release: {{ .Release.Name }}
+        app: k8s-bigip-ctlr-deployment
+    spec:
+      containers:
+        - name: k8s-bigip-ctlr
+          image: {{ template "system_default_registry" . }}{{.Values.image.repository}}:{{.Values.image.tag}}
+          env:
+            - name: BIGIP_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: bigip-login
+                  key: username
+            - name: BIGIP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: bigip-login
+                  key: password
+          command: ["/app/bin/k8s-bigip-ctlr"]
+          args:
+            - "--bigip-username=$(BIGIP_USERNAME)"
+            - "--bigip-password=$(BIGIP_PASSWORD)"
+            - "--bigip-url={{.Values.bigip.url}}"
+            - "--bigip-partition={{.Values.partition}}"
+{{- if ne .Values.network.poolMemberType "" }}
+  {{- if ne .Values.network.poolMemberType "none" }}
+            - "--pool-member-type={{.Values.network.poolMemberType}}"
+  {{- end }}
+{{- end }}
+{{- if .Values.network.flannelName }}
+            - "--flannel-name={{.Values.network.flannelName}}"
+{{- end }}
+{{- if .Values.insecure }}
+            - "--insecure"
+{{- else if .Values.certsConfigmap }}
+            - "--trusted-certs-cfgmap={{.Values.certsConfigmap}}"
+{{- end }}
+            - "--custom-resource-mode=true"
+          {{- range $key, $value := .Values.extraArgs }}
+            {{- if $value }}
+            - "--{{ $key }}={{ $value }}"
+            {{- else }}
+            - "--{{ $key }}"
+            {{- end }}
+          {{- end }}
+      serviceAccount: bigip-ctlr
+      serviceAccountName: bigip-ctlr
