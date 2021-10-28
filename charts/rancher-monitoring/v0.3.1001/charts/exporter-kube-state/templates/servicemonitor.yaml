@@ -35,7 +35,16 @@ spec:
       action: replace
       regex: (.+)
       replacement: $1
-    metricRelabeings:
+    metricRelabelings:
+    - sourceLabels:
+      - namespace
+      - pod
+      - container
+      targetLabel: id
+      action: replace
+      separator: ":"
+      regex: (.+)
+      replacement: {{ .Values.global.clusterName }}:$1
     - sourceLabels:
       - __name__
       target_label: resource
