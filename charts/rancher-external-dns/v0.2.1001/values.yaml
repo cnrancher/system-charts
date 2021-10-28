@@ -1,6 +1,6 @@
 ## Details about the image to be pulled.
 image:
-  repository: rancher/mirrored-kubernetes-external-dns
+  repository: cnrancher/external-dns
   tag: v0.7.3
   pullSecrets: []
   pullPolicy: IfNotPresent
@@ -14,8 +14,8 @@ sources:
 # Allow external-dns to publish DNS records for ClusterIP services (optional)
 publishInternalServices: false
 
-## The DNS provider where the DNS records will be created (options: aws, google, inmemory, azure, alibabacloud )
-provider: aws
+## The DNS provider where the DNS records will be created (options: aws, google, inmemory, azure, alibabacloud, rdns )
+provider: rdns 
 
 # Configurations for Alibabacloud provider
 alibabacloud:
@@ -79,6 +79,29 @@ infoblox:
   wapiVersion: ""
   wapiConnectionPoolSize: ""
   wapiHttpTimeout: ""
+
+# RancherDNS keys to inject as environments	
+rdns:	
+  # Required keys:	
+  etcd_urls: ""	
+  rdns_root_domain: ""	
+  # Optional keys:	
+  etcd_ca_file: ""	
+  etcd_cert_file: ""	
+  etcd_key_file: ""	
+  etcd_tls_server_name: ""	
+  etcd_tls_insecure: ""
+
+# Rancher bigip keys to inject as environments	
+f5bigip:	
+  # Required keys:	
+  f5_bigip_host: ""	
+  f5_bigip_port: "8443"
+  f5_bigip_user: ""
+  f5_bigip_passwd: ""
+  f5_bigip_datacenter_name: ""
+  f5_bigip_server_name: "rancher"
+  f5_bigip_device_ips: ""
 
 ## Limit possible target zones by domain suffixes (optional)
 domainFilters: []
