@@ -129,7 +129,6 @@ spec:
         image: {{ template "system_default_registry" . }}{{ .Values.configmapReload.image.repository }}:{{ .Values.configmapReload.image.tag }}
         imagePullPolicy: "{{ .Values.configmapReload.image.pullPolicy }}"
         args:
-          - --volume-dir=/fluentd/etc/config/custom
           - --volume-dir=/fluentd/etc/config/precan
           - --volume-dir=/fluentd/etc/config/ssl
           - --volume-dir=/fluentd/etc/config/entry
@@ -138,36 +137,47 @@ spec:
         resources:
 {{ toYaml .Values.configmapReload.resources | indent 10 }}
         volumeMounts:
-          - mountPath: /fluentd/etc/config/custom
-            name: custom
           - mountPath: /fluentd/etc/config/precan
             name: config
           - mountPath: /fluentd/etc/config/entry
             name: entry
           - mountPath: /fluentd/etc/config/ssl
             name: ssl
+      - name: {{ template "fluentd.fullname" . }}-{{ .Values.watcher.name }}
+        image: {{ template "system_default_registry" . }}{{ .Values.watcher.image.repository }}:{{ .Values.watcher.image.tag }}
+        imagePullPolicy: "{{ .Values.watcher.image.pullPolicy }}"
+        args:
+          - ./watcher
+          - -cmd=curl http://127.0.0.1:24444/api/config.reload
+          - -pipe=true
+          - /fluentd/etc/config/custom
+        resources:
+{{ toYaml .Values.watcher.resources | indent 10 }}
+        volumeMounts:
+          - mountPath: /fluentd/etc/config/custom
+            name: custom
       terminationGracePeriodSeconds: 30
       volumes:
       - hostPath:
-          path: /var/lib/rancher/fluentd/etc/config/custom
+          path: {{ .Values.cluster.custom }}
         name: custom
       - hostPath:
           path: {{ .Values.cluster.dockerRoot }}
         name: dockerroot
       - hostPath:
-          path: /var/log/containers
+          path:  {{ .Values.cluster.varlogcontainers }}
         name: varlogcontainers
       - hostPath:
-          path: /var/log/pods
+          path: {{ .Values.cluster.varlogpods }}
         name: varlogpods
       - hostPath:
-          path: /var/lib/rancher/rke/log
+          path: {{ .Values.cluster.rkelog }}
         name: rkelog
       - hostPath:
-          path: /var/lib/rancher/log-volumes
+          path: {{ .Values.cluster.customlog }}
         name: customlog
       - hostPath:
-          path: /var/lib/rancher/fluentd/log
+          path: {{ .Values.cluster.fluentdlog }}
         name: fluentdlog
       - name: config
         secret:
