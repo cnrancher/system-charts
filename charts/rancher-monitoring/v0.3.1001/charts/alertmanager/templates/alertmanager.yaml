@@ -28,14 +28,22 @@ spec:
     {{ (index $pair 0) }}: ""
     {{- end }}
     {{- end }}
-  clusterAdvertiseAddress: {{ .Values.clusterAdvertiseAddress }} 
+  {{ if .Values.clusterAdvertiseAddress -}}
+  clusterAdvertiseAddress: {{ .Values.clusterAdvertiseAddress }}
+  {{- end }} 
   {{ if .Values.additionalPeers -}}
   additionalPeers:
 {{ toYaml .Values.additionalPeers | indent 2 }}
   {{- end }}  
-  clusterPeerTimeout: {{ .Values.clusterPeerTimeout }} 
-  clusterGossipInterval: {{ .Values.clusterGossipInterval }} 
-  clusterPushpullInterval: {{ .Values.clusterPushpullInterval }} 
+  {{ if .Values.clusterPeerTimeout -}}
+  clusterPeerTimeout: {{ .Values.clusterPeerTimeout }}
+  {{- end }}  
+  {{ if .Values.clusterGossipInterval -}}
+  clusterGossipInterval: {{ .Values.clusterGossipInterval }}
+  {{- end }}  
+  {{ if .Values.clusterPushpullInterval -}}
+  clusterPushpullInterval: {{ .Values.clusterPushpullInterval }}
+  {{- end }}  
   paused: {{ .Values.paused }}
   replicas: {{ .Values.replicaCount }}
   logLevel:  {{ .Values.logLevel }}
