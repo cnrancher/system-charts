@@ -1,0 +1,17 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ .Values.name | default "istio-ingressgateway" }}-sds
+  namespace: {{ .Release.Namespace }}
+  labels:
+    istio.io/rev: {{ .Values.revision | default "default" }}
+    install.operator.istio.io/owning-resource: {{ .Values.ownerName | default "unknown" }}
+    operator.istio.io/component: "IngressGateways"
+    chart: {{ template "istio-ingress.chart" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+rules:
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["get", "watch", "list"]
+---
