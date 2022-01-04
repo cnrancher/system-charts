@@ -15,12 +15,10 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 26,
   "links": [],
   "panels": [
     {
-      "collapsed": false,
-      "datasource": null,
+      "collapsed": true,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -28,47 +26,35 @@
         "y": 0
       },
       "id": 21,
-      "panels": [],
+      "panels": [
+        {
+          "content": "The charts on this dashboard are intended to show Istio main components cost in terms of resources utilization under steady load.\n\n- **vCPU / 1k rps:** shows vCPU utilization by the main Istio components normalized by 1000 requests/second. When idle or low traffic, this chart will be blank. The curve for istio-proxy refers to the services sidecars only.\n- **vCPU:** vCPU utilization by Istio components, not normalized.\n- **Memory:** memory footprint for the components. Telemetry and policy are normalized by 1k rps, and no data is shown  when there is no traffic. For ingress and istio-proxy, the data is per instance.\n- **Bytes transferred / sec:** shows the number of bytes flowing through each Istio component.\n\n\n",
+          "gridPos": {
+            "h": 6,
+            "w": 24,
+            "x": 0,
+            "y": 1
+          },
+          "id": 19,
+          "links": [],
+          "mode": "markdown",
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Performance Dashboard README",
+          "transparent": true,
+          "type": "text"
+        }
+      ],
       "title": "Performance Dashboard Notes",
       "type": "row"
     },
     {
-      "content": "The charts on this dashboard are intended to show Istio main components cost in terms of resources utilization under steady load.\n\n- **vCPU / 1k rps:** shows vCPU utilization by the main Istio components normalized by 1000 requests/second. When idle or low traffic, this chart will be blank. The curve for istio-proxy refers to the services sidecars only.\n- **vCPU:** vCPU utilization by Istio components, not normalized.\n- **Memory:** memory footprint for the components. Telemetry and policy are normalized by 1k rps, and no data is shown  when there is no traffic. For ingress and istio-proxy, the data is per instance.\n- **Bytes transferred / sec:** shows the number of bytes flowing through each Istio component.\n\n\n",
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 24,
-        "x": 0,
-        "y": 1
-      },
-      "id": 19,
-      "links": [],
-      "mode": "markdown",
-      "options": {
-        "content": "The charts on this dashboard are intended to show Istio main components cost in terms of resources utilization under steady load.\n\n- **vCPU / 1k rps:** shows vCPU utilization by the main Istio components normalized by 1000 requests/second. When idle or low traffic, this chart will be blank. The curve for istio-proxy refers to the services sidecars only.\n- **vCPU:** vCPU utilization by Istio components, not normalized.\n- **Memory:** memory footprint for the components. Telemetry and policy are normalized by 1k rps, and no data is shown  when there is no traffic. For ingress and istio-proxy, the data is per instance.\n- **Bytes transferred / sec:** shows the number of bytes flowing through each Istio component.\n\n\n",
-        "mode": "markdown"
-      },
-      "pluginVersion": "7.1.0",
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Performance Dashboard README",
-      "transparent": true,
-      "type": "text"
-    },
-    {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 7
+        "y": 1
       },
       "id": 6,
       "panels": [],
@@ -81,21 +67,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 8
+        "y": 2
       },
-      "hiddenSeries": false,
       "id": 4,
       "legend": {
         "avg": false,
@@ -111,7 +89,6 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -124,7 +101,6 @@
           "expr": "(sum(irate(container_cpu_usage_seconds_total{pod=~\"istio-ingressgateway-.*\",container=\"istio-proxy\"}[1m])) / (round(sum(irate(istio_requests_total{source_workload=\"istio-ingressgateway\", reporter=\"source\"}[1m])), 0.001)/1000))",
           "format": "time_series",
           "hide": false,
-          "interval": "",
           "intervalFactor": 1,
           "legendFormat": "istio-ingressgateway",
           "refId": "A"
@@ -132,7 +108,6 @@
         {
           "expr": "(sum(irate(container_cpu_usage_seconds_total{namespace!=\"istio-system\",container=\"istio-proxy\"}[1m]))/ (round(sum(irate(istio_requests_total[1m])), 0.001)/1000))/ (sum(irate(istio_requests_total{source_workload=\"istio-ingressgateway\"}[1m])) >bool 10)",
           "format": "time_series",
-          "interval": "",
           "intervalFactor": 1,
           "legendFormat": "istio-proxy",
           "refId": "B"
@@ -185,21 +160,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 8
+        "y": 2
       },
-      "hiddenSeries": false,
       "id": 7,
       "legend": {
         "avg": false,
@@ -215,7 +182,6 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -282,12 +248,11 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 16
+        "y": 10
       },
       "id": 13,
       "panels": [],
@@ -300,21 +265,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 17
+        "y": 11
       },
-      "hiddenSeries": false,
       "id": 902,
       "legend": {
         "avg": false,
@@ -330,7 +287,6 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -401,21 +357,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 17
+        "y": 11
       },
-      "hiddenSeries": false,
       "id": 11,
       "legend": {
         "avg": false,
@@ -431,7 +379,6 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -498,12 +445,11 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 25
+        "y": 19
       },
       "id": 17,
       "panels": [],
@@ -516,21 +462,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 26
+        "y": 20
       },
-      "hiddenSeries": false,
       "id": 15,
       "legend": {
         "avg": false,
@@ -546,7 +484,6 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -606,12 +543,11 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 34
+        "y": 31
       },
       "id": 71,
       "panels": [],
@@ -624,21 +560,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 6,
         "x": 0,
-        "y": 35
+        "y": 32
       },
-      "hiddenSeries": false,
       "id": 72,
       "legend": {
         "avg": false,
@@ -654,7 +582,6 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "7.1.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -720,21 +647,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 6,
         "x": 6,
-        "y": 35
+        "y": 32
       },
-      "hiddenSeries": false,
       "id": 73,
       "legend": {
         "avg": false,
@@ -750,7 +669,6 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "7.1.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -816,21 +734,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 6,
         "x": 12,
-        "y": 35
+        "y": 32
       },
-      "hiddenSeries": false,
       "id": 702,
       "legend": {
         "avg": false,
@@ -846,7 +756,6 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "7.1.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -908,12 +817,11 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 42
+        "y": 39
       },
       "id": 69,
       "panels": [],
@@ -926,21 +834,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 6,
         "x": 0,
-        "y": 43
+        "y": 40
       },
-      "hiddenSeries": false,
       "id": 5,
       "legend": {
         "avg": false,
@@ -956,7 +856,6 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "7.1.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1089,21 +988,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 6,
         "x": 6,
-        "y": 43
+        "y": 40
       },
-      "hiddenSeries": false,
       "id": 602,
       "legend": {
         "avg": false,
@@ -1119,7 +1010,6 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "7.1.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1203,21 +1093,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 6,
         "x": 12,
-        "y": 43
+        "y": 40
       },
-      "hiddenSeries": false,
       "id": 74,
       "legend": {
         "avg": false,
@@ -1233,7 +1115,6 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "7.1.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1309,21 +1190,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 6,
         "x": 18,
-        "y": 43
+        "y": 40
       },
-      "hiddenSeries": false,
       "id": 402,
       "legend": {
         "avg": false,
@@ -1339,7 +1212,6 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "7.1.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1400,7 +1272,7 @@
     }
   ],
   "refresh": "10s",
-  "schemaVersion": 26,
+  "schemaVersion": 18,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -1437,6 +1309,6 @@
   },
   "timezone": "",
   "title": "Istio Performance Dashboard",
-  "uid": "vu8e0VWZk2",
-  "version": 4
+  "uid": "vu8e0VWZk",
+  "version": 22
 }

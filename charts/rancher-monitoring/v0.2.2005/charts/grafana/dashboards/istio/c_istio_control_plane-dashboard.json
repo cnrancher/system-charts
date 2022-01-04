@@ -15,12 +15,10 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 1,
-  "id": 29,
   "links": [],
   "panels": [
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -38,21 +36,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 5,
         "w": 24,
         "x": 0,
         "y": 1
       },
-      "hiddenSeries": false,
       "id": 56,
       "legend": {
         "avg": false,
@@ -68,7 +58,6 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "7.1.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -80,7 +69,6 @@
         {
           "expr": "sum(istio_build{component=\"pilot\"}) by (tag)",
           "format": "time_series",
-          "interval": "",
           "intervalFactor": 1,
           "legendFormat": "{{ tag }}",
           "refId": "A"
@@ -129,7 +117,6 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -147,21 +134,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 6,
         "x": 0,
         "y": 7
       },
-      "hiddenSeries": false,
       "id": 5,
       "legend": {
         "avg": false,
@@ -177,7 +156,6 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "7.1.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -308,21 +286,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 6,
         "x": 6,
         "y": 7
       },
-      "hiddenSeries": false,
       "id": 6,
       "legend": {
         "avg": false,
@@ -338,7 +308,6 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "7.1.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -348,28 +317,25 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(irate(container_cpu_usage_seconds_total{container=\"discovery\", pod=~\"istiod-.*|istio-pilot-.*\"}[2m]))",
+          "expr": "sum(irate(container_cpu_usage_seconds_total{container=\"discovery\", pod=~\"istiod-.*|istio-pilot-.*\"}[1m]))",
           "format": "time_series",
-          "interval": "",
           "intervalFactor": 1,
           "legendFormat": "Discovery (container)",
           "refId": "A"
         },
         {
-          "expr": "irate(process_cpu_seconds_total{app=\"istiod\"}[2m])",
+          "expr": "irate(process_cpu_seconds_total{app=\"istiod\"}[1m])",
           "format": "time_series",
           "hide": false,
-          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Discovery (process)",
           "refId": "C",
           "step": 2
         },
         {
-          "expr": "sum(irate(container_cpu_usage_seconds_total{container=\"istio-proxy\", pod=~\"istiod-.*|istio-pilot-.*\"}[2m]))",
+          "expr": "sum(irate(container_cpu_usage_seconds_total{container=\"istio-proxy\", pod=~\"istiod-.*|istio-pilot-.*\"}[1m]))",
           "format": "time_series",
           "hide": false,
-          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Sidecar (container)",
           "refId": "B",
@@ -423,21 +389,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 6,
         "x": 12,
         "y": 7
       },
-      "hiddenSeries": false,
       "id": 7,
       "legend": {
         "avg": false,
@@ -453,7 +411,6 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "7.1.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -526,21 +483,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 6,
         "x": 18,
         "y": 7
       },
-      "hiddenSeries": false,
       "id": 4,
       "legend": {
         "avg": false,
@@ -556,7 +505,6 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "7.1.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -566,9 +514,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "go_goroutines{job=~\".*istiod\"}",
+          "expr": "go_goroutines{app=\"istiod\"}",
           "format": "time_series",
-          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Number of Goroutines",
           "refId": "A",
@@ -618,7 +565,6 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -637,21 +583,13 @@
       "dashes": false,
       "datasource": "RANCHER_MONITORING",
       "description": "Shows the rate of pilot pushes",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 8,
         "x": 0,
         "y": 15
       },
-      "hiddenSeries": false,
       "id": 622,
       "legend": {
         "avg": false,
@@ -668,7 +606,6 @@
       "nullPointMode": "null as zero",
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.1.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -680,7 +617,6 @@
         {
           "expr": "sum(irate(pilot_xds_pushes{type=\"cds\"}[1m]))",
           "format": "time_series",
-          "interval": "",
           "intervalFactor": 1,
           "legendFormat": "Cluster",
           "refId": "C"
@@ -769,21 +705,13 @@
       "dashes": false,
       "datasource": "RANCHER_MONITORING",
       "description": "Captures a variety of pilot errors",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 8,
         "x": 8,
         "y": 15
       },
-      "hiddenSeries": false,
       "id": 67,
       "legend": {
         "avg": false,
@@ -801,7 +729,6 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "7.1.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -814,7 +741,6 @@
           "expr": "sum(pilot_xds_cds_reject{app=\"istiod\"}) or (absent(pilot_xds_cds_reject{app=\"istiod\"}) - 1)",
           "format": "time_series",
           "hide": false,
-          "interval": "",
           "intervalFactor": 1,
           "legendFormat": "Rejected CDS Configs",
           "refId": "C"
@@ -930,21 +856,13 @@
       "dashes": false,
       "datasource": "RANCHER_MONITORING",
       "description": "Shows the total time it takes to push a config update to a proxy",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 8,
         "x": 16,
         "y": 15
       },
-      "hiddenSeries": false,
       "id": 624,
       "legend": {
         "avg": false,
@@ -960,7 +878,6 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -972,7 +889,6 @@
         {
           "expr": "histogram_quantile(0.5, sum(rate(pilot_proxy_convergence_time_bucket[1m])) by (le))",
           "format": "time_series",
-          "interval": "",
           "intervalFactor": 1,
           "legendFormat": "p50 ",
           "refId": "A"
@@ -980,7 +896,6 @@
         {
           "expr": "histogram_quantile(0.9, sum(rate(pilot_proxy_convergence_time_bucket[1m])) by (le))",
           "format": "time_series",
-          "interval": "",
           "intervalFactor": 1,
           "legendFormat": "p90",
           "refId": "B"
@@ -1047,21 +962,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 0,
         "y": 23
       },
-      "hiddenSeries": false,
       "id": 45,
       "legend": {
         "avg": false,
@@ -1079,7 +986,6 @@
       "links": [],
       "nullPointMode": "null as zero",
       "percentage": false,
-      "pluginVersion": "7.1.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1092,7 +998,6 @@
           "expr": "pilot_conflict_inbound_listener{app=\"istiod\"}",
           "format": "time_series",
           "hide": false,
-          "interval": "",
           "intervalFactor": 1,
           "legendFormat": "Inbound Listeners",
           "refId": "B"
@@ -1169,21 +1074,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 12,
         "y": 23
       },
-      "hiddenSeries": false,
       "id": 47,
       "legend": {
         "avg": false,
@@ -1199,7 +1096,6 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "7.1.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1209,24 +1105,24 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "pilot_virt_services{app=\"istiod\"}",
+          "expr": "avg(pilot_virt_services{app=\"istiod\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Virtual Services",
           "refId": "A"
         },
         {
-          "expr": "pilot_services{app=\"istiod\"}",
+          "expr": "avg(pilot_services{app=\"istiod\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Services",
           "refId": "B"
         },
         {
-          "expr": "pilot_xds{app=\"istiod\"}",
+          "expr": "sum(pilot_xds{app=\"istiod\"}) by (pod)",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "Connected Endpoints",
+          "legendFormat": "Connected Endpoints {{pod}}",
           "refId": "E"
         }
       ],
@@ -1273,7 +1169,6 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1292,21 +1187,13 @@
       "dashes": false,
       "datasource": "RANCHER_MONITORING",
       "description": "Shows details about Envoy proxies in the mesh",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 8,
         "x": 0,
         "y": 32
       },
-      "hiddenSeries": false,
       "id": 40,
       "legend": {
         "avg": false,
@@ -1322,7 +1209,6 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "7.1.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1402,21 +1288,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 8,
         "x": 8,
         "y": 32
       },
-      "hiddenSeries": false,
       "id": 41,
       "legend": {
         "avg": false,
@@ -1432,7 +1310,6 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "7.1.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1498,21 +1375,13 @@
       "dashes": false,
       "datasource": "RANCHER_MONITORING",
       "description": "Shows the size of XDS requests and responses",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 8,
         "x": 16,
         "y": 32
       },
-      "hiddenSeries": false,
       "id": 42,
       "legend": {
         "avg": false,
@@ -1530,7 +1399,6 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "7.1.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1631,13 +1499,6 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "links": []
-        },
-        "overrides": []
-      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -1662,8 +1523,10 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
       "percentage": false,
-      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1733,13 +1596,6 @@
       "dashes": false,
       "datasource": null,
       "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "links": []
-        },
-        "overrides": []
-      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -1763,8 +1619,10 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
       "percentage": false,
-      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1829,11 +1687,31 @@
     }
   ],
   "refresh": "5s",
-  "schemaVersion": 26,
+  "schemaVersion": 18,
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": "default",
+          "value": "default"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "prometheus",
+        "queryValue": "",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      }
+    ]
   },
   "time": {
     "from": "now-5m",
@@ -1866,6 +1744,6 @@
   },
   "timezone": "browser",
   "title": "Istio Control Plane Dashboard",
-  "uid": "3--MLVZZk2",
-  "version": 5
+  "uid": "3--MLVZZk",
+  "version": 11
 }

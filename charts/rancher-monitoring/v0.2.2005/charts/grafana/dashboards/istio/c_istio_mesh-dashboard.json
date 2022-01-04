@@ -15,19 +15,11 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 25,
-  "iteration": 1620894902230,
+  "id": null,
   "links": [],
   "panels": [
     {
-      "content": "<div>\n  <div style=\"position: absolute; bottom: 0\">\n    <a href=\"https://istio.io\" target=\"_blank\" style=\"font-size: 30px; text-decoration: none; color: inherit\"><img src=\"https://istio.io/latest/img/istio-bluelogo-nobackground-unframed.svg\" style=\"height: 50px\"> Istio</a>\n  </div>\n  <div style=\"position: absolute; bottom: 0; right: 0; font-size: 15px\">\n    Istio is an <a href=\"https://github.com/istio/istio\" target=\"_blank\">open platform</a> that provides a uniform way to connect,\n    <a href=\"https://istio.io/docs/concepts/traffic-management/overview.html\" target=\"_blank\">manage</a>, and \n    <a href=\"https://istio.io/docs/concepts/network-and-auth/auth.html\" target=\"_blank\">secure</a> microservices.\n    <br>\n    Need help? Join the <a href=\"https://istio.io/community/\" target=\"_blank\">Istio community</a>.\n  </div>\n</div>",
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
+      "content": "<div>\n  <div style=\"position: absolute; bottom: 0\">\n    <a href=\"https://istio.io\" target=\"_blank\" style=\"font-size: 30px; text-decoration: none; color: inherit\"><img src=\"https://istio.io/latest/img/istio-bluelogo-nobackground-unframed.svg\" style=\"height: 50px\"> Istio</a>\n  </div>\n  <div style=\"position: absolute; bottom: 0; right: 0; font-size: 15px\">\n    Istio is an <a href=\"https://github.com/istio/istio\" target=\"_blank\">open platform</a> that provides a uniform way to <a href=\"https://istio.io/docs/concepts/security/\" target=\"_blank\">secure</a>,\n    <a href=\"https://istio.io/docs/concepts/traffic-management/\" target=\"_blank\">connect</a>, and \n    <a href=\"https://istio.io/docs/concepts/observability/\" target=\"_blank\">monitor</a> microservices.\n    <br>\n    Need help? <a href=\"https://istio.io/get-involved/\" target=\"_blank\">Join the Istio community</a>.\n  </div>\n</div>",
       "gridPos": {
         "h": 3,
         "w": 24,
@@ -38,11 +30,6 @@
       "id": 13,
       "links": [],
       "mode": "html",
-      "options": {
-        "content": "<div>\n  <div style=\"position: absolute; bottom: 0\">\n    <a href=\"https://istio.io\" target=\"_blank\" style=\"font-size: 30px; text-decoration: none; color: inherit\"><img src=\"https://istio.io/latest/img/istio-bluelogo-nobackground-unframed.svg\" style=\"height: 50px\"> Istio</a>\n  </div>\n  <div style=\"position: absolute; bottom: 0; right: 0; font-size: 15px\">\n    Istio is an <a href=\"https://github.com/istio/istio\" target=\"_blank\">open platform</a> that provides a uniform way to connect,\n    <a href=\"https://istio.io/docs/concepts/traffic-management/overview.html\" target=\"_blank\">manage</a>, and \n    <a href=\"https://istio.io/docs/concepts/network-and-auth/auth.html\" target=\"_blank\">secure</a> microservices.\n    <br>\n    Need help? Join the <a href=\"https://istio.io/community/\" target=\"_blank\">Istio community</a>.\n  </div>\n</div>",
-        "mode": "html"
-      },
-      "pluginVersion": "7.1.0",
       "style": {
         "font-size": "18pt"
       },
@@ -60,12 +47,6 @@
         "rgba(50, 172, 45, 0.97)"
       ],
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "format": "ops",
       "gauge": {
         "maxValue": 100,
@@ -83,6 +64,20 @@
       "id": 20,
       "interval": null,
       "links": [],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
       "mappingType": 1,
       "mappingTypes": [
         {
@@ -117,10 +112,8 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "round(sum(irate(istio_requests_total{reporter=\"source\"}[2m])), 0.001)",
-          "interval": "",
+          "expr": "round(sum(irate(istio_requests_total{reporter=\"source\"}[1m])), 0.001)",
           "intervalFactor": 1,
-          "legendFormat": "",
           "refId": "A",
           "step": 4
         }
@@ -148,12 +141,6 @@
         "rgba(50, 172, 45, 0.97)"
       ],
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "format": "percentunit",
       "gauge": {
         "maxValue": 100,
@@ -171,6 +158,20 @@
       "id": 21,
       "interval": null,
       "links": [],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
       "mappingType": 1,
       "mappingTypes": [
         {
@@ -235,12 +236,6 @@
         "rgba(50, 172, 45, 0.97)"
       ],
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "format": "ops",
       "gauge": {
         "maxValue": 100,
@@ -258,6 +253,20 @@
       "id": 22,
       "interval": null,
       "links": [],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
       "mappingType": 1,
       "mappingTypes": [
         {
@@ -322,12 +331,6 @@
         "rgba(50, 172, 45, 0.97)"
       ],
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "format": "ops",
       "gauge": {
         "maxValue": 100,
@@ -345,6 +348,20 @@
       "id": 23,
       "interval": null,
       "links": [],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
       "mappingType": 1,
       "mappingTypes": [
         {
@@ -409,12 +426,6 @@
         "#d44a3a"
       ],
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -432,6 +443,20 @@
       "id": 113,
       "interval": null,
       "links": [],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
       "mappingType": 1,
       "mappingTypes": [
         {
@@ -497,12 +522,6 @@
         "#d44a3a"
       ],
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -520,6 +539,20 @@
       "id": 114,
       "interval": null,
       "links": [],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
       "mappingType": 1,
       "mappingTypes": [
         {
@@ -585,12 +618,6 @@
         "#d44a3a"
       ],
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -608,6 +635,20 @@
       "id": 115,
       "interval": null,
       "links": [],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
       "mappingType": 1,
       "mappingTypes": [
         {
@@ -673,12 +714,6 @@
         "#d44a3a"
       ],
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -696,6 +731,20 @@
       "id": 116,
       "interval": null,
       "links": [],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
       "mappingType": 1,
       "mappingTypes": [
         {
@@ -761,12 +810,6 @@
         "#d44a3a"
       ],
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -779,11 +822,25 @@
         "h": 3,
         "w": 6,
         "x": 0,
-        "y": 9
+        "y": 6
       },
       "id": 117,
       "interval": null,
       "links": [],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
       "mappingType": 1,
       "mappingTypes": [
         {
@@ -849,12 +906,6 @@
         "#d44a3a"
       ],
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -867,11 +918,25 @@
         "h": 3,
         "w": 6,
         "x": 6,
-        "y": 9
+        "y": 6
       },
       "id": 90,
       "interval": null,
       "links": [],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
       "mappingType": 1,
       "mappingTypes": [
         {
@@ -937,12 +1002,6 @@
         "#d44a3a"
       ],
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -955,11 +1014,25 @@
         "h": 3,
         "w": 6,
         "x": 12,
-        "y": 9
+        "y": 6
       },
       "id": 91,
       "interval": null,
       "links": [],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
       "mappingType": 1,
       "mappingTypes": [
         {
@@ -1025,12 +1098,6 @@
         "#d44a3a"
       ],
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -1043,11 +1110,25 @@
         "h": 3,
         "w": 6,
         "x": 18,
-        "y": 9
+        "y": 6
       },
       "id": 92,
       "interval": null,
       "links": [],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
       "mappingType": 1,
       "mappingTypes": [
         {
@@ -1106,18 +1187,12 @@
     {
       "columns": [],
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fontSize": "100%",
       "gridPos": {
         "h": 21,
         "w": 24,
         "x": 0,
-        "y": 12
+        "y": 9
       },
       "hideTimeOverride": false,
       "id": 73,
@@ -1128,13 +1203,12 @@
       "scroll": true,
       "showHeader": true,
       "sort": {
-        "col": 4,
+        "col": 5,
         "desc": true
       },
       "styles": [
         {
           "alias": "Workload",
-          "align": "auto",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -1146,7 +1220,7 @@
           "link": false,
           "linkTargetBlank": false,
           "linkTooltip": "Workload dashboard",
-          "linkUrl": "/dashboard/db/istio-workload-dashboard?var-namespace=${__cell_2:raw}&var-workload=${__cell_:raw}",
+          "linkUrl": "/dashboard/db/istio-workload-dashboard?var-namespace=${__cell_3:raw}&var-workload=${__cell_2:raw}",
           "pattern": "destination_workload",
           "preserveFormat": false,
           "sanitize": false,
@@ -1156,7 +1230,6 @@
         },
         {
           "alias": "",
-          "align": "auto",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -1172,7 +1245,6 @@
         },
         {
           "alias": "Requests",
-          "align": "auto",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -1188,7 +1260,6 @@
         },
         {
           "alias": "P50 Latency",
-          "align": "auto",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -1204,7 +1275,6 @@
         },
         {
           "alias": "P90 Latency",
-          "align": "auto",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -1220,7 +1290,6 @@
         },
         {
           "alias": "P99 Latency",
-          "align": "auto",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -1236,7 +1305,6 @@
         },
         {
           "alias": "Success Rate",
-          "align": "auto",
           "colorMode": "cell",
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -1255,7 +1323,6 @@
         },
         {
           "alias": "Workload",
-          "align": "auto",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -1274,7 +1341,6 @@
         },
         {
           "alias": "Service",
-          "align": "auto",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -1293,7 +1359,6 @@
         },
         {
           "alias": "",
-          "align": "auto",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -1359,23 +1424,17 @@
       "timeFrom": null,
       "title": "HTTP/GRPC Workloads",
       "transform": "table",
-      "type": "table-old"
+      "type": "table"
     },
     {
       "columns": [],
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fontSize": "100%",
       "gridPos": {
         "h": 18,
         "w": 24,
         "x": 0,
-        "y": 33
+        "y": 30
       },
       "hideTimeOverride": false,
       "id": 109,
@@ -1385,13 +1444,12 @@
       "scroll": true,
       "showHeader": true,
       "sort": {
-        "col": 2,
+        "col": 5,
         "desc": true
       },
       "styles": [
         {
           "alias": "Workload",
-          "align": "auto",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -1403,7 +1461,7 @@
           "link": false,
           "linkTargetBlank": false,
           "linkTooltip": "$__cell dashboard",
-          "linkUrl": "/dashboard/db/istio-tcp-workload-dashboard?var-namespace=${__cell_2:raw}&&var-workload=${__cell_:raw}",
+          "linkUrl": "/dashboard/db/istio-workload-dashboard?var-namespace=${__cell_3:raw}&var-workload=${__cell_2:raw}",
           "pattern": "destination_workload",
           "preserveFormat": false,
           "sanitize": false,
@@ -1413,7 +1471,6 @@
         },
         {
           "alias": "Bytes Sent",
-          "align": "auto",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -1431,7 +1488,6 @@
         },
         {
           "alias": "Bytes Received",
-          "align": "auto",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -1447,7 +1503,6 @@
         },
         {
           "alias": "",
-          "align": "auto",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -1463,7 +1518,6 @@
         },
         {
           "alias": "Workload",
-          "align": "auto",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -1482,7 +1536,6 @@
         },
         {
           "alias": "",
-          "align": "auto",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -1498,7 +1551,6 @@
         },
         {
           "alias": "Service",
-          "align": "auto",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -1539,7 +1591,7 @@
       "timeFrom": null,
       "title": "TCP Workloads",
       "transform": "table",
-      "type": "table-old"
+      "type": "table"
     },
     {
       "aliasColors": {},
@@ -1547,18 +1599,12 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "RANCHER_MONITORING",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
       "gridPos": {
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 51
+        "y": 48
       },
       "id": 111,
       "legend": {
@@ -1577,7 +1623,6 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "7.1.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1637,11 +1682,31 @@
     }
   ],
   "refresh": "5s",
-  "schemaVersion": 26,
+  "schemaVersion": 18,
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": "default",
+          "value": "default"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "prometheus",
+        "queryValue": "",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      }
+    ]
   },
   "time": {
     "from": "now-5m",
@@ -1675,5 +1740,5 @@
   "timezone": "browser",
   "title": "Istio Mesh Dashboard",
   "uid": "G8wLrJIZk",
-  "version": 3
+  "version": 5
 }

@@ -15,7 +15,6 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 24,
   "links": [],
   "panels": [
     {
@@ -41,7 +40,24 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {
+            "align": null
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
         },
         "overrides": []
       },
@@ -71,7 +87,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "7.2.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -81,13 +97,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "avg(envoy_wasm_vm_null_active)",
+          "expr": "avg(envoy_wasm_envoy_wasm_runtime_null_active)",
           "interval": "",
           "legendFormat": "native",
           "refId": "A"
         },
         {
-          "expr": "avg(envoy_wasm_vm_v8_active)",
+          "expr": "avg(envoy_wasm_envoy_wasm_runtime_v8_active)",
           "interval": "",
           "legendFormat": "v8",
           "refId": "B"
@@ -113,6 +129,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:123",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -121,6 +138,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:124",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -142,7 +160,8 @@
       "datasource": "RANCHER_MONITORING",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "links": []
         },
         "overrides": []
       },
@@ -172,7 +191,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "7.2.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -182,13 +201,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "avg(envoy_wasm_vm_null_created)",
+          "expr": "avg(envoy_wasm_envoy_wasm_runtime_null_created)",
           "interval": "",
           "legendFormat": "native",
           "refId": "A"
         },
         {
-          "expr": "avg(envoy_wasm_vm_v8_created)",
+          "expr": "avg(envoy_wasm_envoy_wasm_runtime_v8_created)",
           "interval": "",
           "legendFormat": "v8",
           "refId": "B"
@@ -214,6 +233,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:68",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -222,6 +242,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:69",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -257,7 +278,8 @@
       "datasource": "RANCHER_MONITORING",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "links": []
         },
         "overrides": []
       },
@@ -287,7 +309,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "7.2.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -323,6 +345,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:178",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -331,6 +354,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:179",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -352,7 +376,8 @@
       "datasource": "RANCHER_MONITORING",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "links": []
         },
         "overrides": []
       },
@@ -382,7 +407,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "7.2.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -430,6 +455,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:233",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -438,6 +464,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:234",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -459,7 +486,8 @@
       "datasource": "RANCHER_MONITORING",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "links": []
         },
         "overrides": []
       },
@@ -489,7 +517,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "7.2.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -531,6 +559,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:288",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -539,6 +568,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:289",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -605,7 +635,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "7.2.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -644,6 +674,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:396",
           "format": "bytes",
           "label": null,
           "logBase": 1,
@@ -652,6 +683,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:397",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -704,7 +736,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "7.2.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -743,6 +775,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:447",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -751,6 +784,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:448",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -773,8 +807,8 @@
     "list": []
   },
   "time": {
-    "from": "now-5m",
-    "to": "now"
+    "from": "2020-10-22T23:11:45.783Z",
+    "to": "2020-10-23T00:04:19.481Z"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -792,5 +826,5 @@
   "timezone": "",
   "title": "Istio Wasm Extension Dashboard",
   "uid": "7PAV7ctGz",
-  "version": 4
+  "version": 17
 }
