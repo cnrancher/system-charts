@@ -1,16 +1,17 @@
+{{- if eq .Values.injectionTemplate "" }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.name | default "istio-ingressgateway" }}
+  name: {{ .Values.name }}
   namespace: {{ .Release.Namespace }}
   labels:
 {{ .Values.labels | toYaml | indent 4 }}
+    release: {{ .Release.Name }}
     istio.io/rev: {{ .Values.revision | default "default" }}
     install.operator.istio.io/owning-resource: {{ .Values.ownerName | default "unknown" }}
     operator.istio.io/component: "IngressGateways"
     chart: {{ template "istio-ingress.chart" . }}
     heritage: {{ .Release.Service }}
-    release: {{ .Release.Name }}
 spec:
 {{- if not .Values.autoscaleEnabled }}
 {{- if .Values.replicaCount }}
@@ -20,7 +21,7 @@ spec:
   selector:
     matchLabels:
 {{ .Values.labels | toYaml | indent 6 }}
-      # for compatible: the release name must be cluster-istio
+# for compatible: the release name must be cluster-istio
       release: cluster-istio
   strategy:
     rollingUpdate:
@@ -32,10 +33,10 @@ spec:
 {{ .Values.labels | toYaml | indent 8 }}
 {{- if eq .Release.Namespace "istio-system"}}
         heritage: Tiller
-        release: cluster-istio
+        release: istio
         chart: gateways
 {{- end }}
-        service.istio.io/canonical-name: {{ .Values.name | default "istio-ingressgateway" }}
+        service.istio.io/canonical-name: {{ .Values.name }}
         {{- if not (eq .Values.revision "") }}
         service.istio.io/canonical-revision: {{ .Values.revision }}
         {{- else}}
@@ -44,6 +45,7 @@ spec:
         istio.io/rev: {{ .Values.revision | default "default" }}
         install.operator.istio.io/owning-resource: {{ .Values.ownerName | default "unknown" }}
         operator.istio.io/component: "IngressGateways"
+        sidecar.istio.io/inject: "false"
       annotations:
         {{- if .Values.meshConfig.enablePrometheusMerge }}
         prometheus.io/port: "15020"
@@ -62,7 +64,7 @@ spec:
         runAsNonRoot: true
         fsGroup: 1337
 {{- end }}
-      serviceAccountName: {{ .Values.name | default "istio-ingressgateway" }}-service-account
+      serviceAccountName: {{ .Values.name }}-service-account
 {{- if .Values.global.priorityClassName }}
       priorityClassName: "{{ .Values.global.priorityClassName }}"
 {{- end }}
@@ -95,12 +97,6 @@ spec:
             - containerPort: {{ $val.targetPort | default $val.port }}
               protocol: {{ $val.protocol | default "TCP" }}
             {{- end }}
-            {{- if $.Values.global.meshExpansion.enabled }}
-            {{- range $key, $val := .Values.meshExpansionPorts }}
-            - containerPort: {{ $val.targetPort | default $val.port }}
-              protocol: {{ $val.protocol | default "TCP" }}
-            {{- end }}
-            {{- end }}
             - containerPort: 15090
               protocol: TCP
               name: http-envoy-prom
@@ -121,8 +117,6 @@ spec:
         {{- if .Values.global.logAsJson }}
           - --log_as_json
         {{- end }}
-          - --serviceCluster
-          - {{ .Values.name | default "istio-ingressgateway" }}
         {{- if .Values.global.sts.servicePort }}
           - --stsPort={{ .Values.global.sts.servicePort }}
         {{- end }}
@@ -191,28 +185,20 @@ spec:
             valueFrom:
               fieldRef:
                 fieldPath: spec.serviceAccountName
-          - name: CANONICAL_SERVICE
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.labels['service.istio.io/canonical-name']
-          - name: CANONICAL_REVISION
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.labels['service.istio.io/canonical-revision']
           - name: ISTIO_META_WORKLOAD_NAME
-            value: {{ .Values.name | default "istio-ingressgateway" }}
+            value: {{ .Values.name }}
           - name: ISTIO_META_OWNER
-            value: kubernetes://apis/apps/v1/namespaces/{{ .Release.Namespace }}/deployments/{{ .Values.name | default "istio-ingressgateway" }}
+            value: kubernetes://apis/apps/v1/namespaces/{{ .Release.Namespace }}/deployments/{{ .Values.name }}
           {{- if $.Values.global.meshID }}
           - name: ISTIO_META_MESH_ID
             value: "{{ $.Values.global.meshID }}"
-          {{- else if $.Values.global.trustDomain | default (index .Values.meshConfig "trustDomain") }}
+          {{- else if .Values.meshConfig.trustDomain }}
           - name: ISTIO_META_MESH_ID
-            value: "{{ $.Values.global.trustDomain  | default (index .Values.meshConfig "trustDomain") }}"
+            value: "{{ .Values.meshConfig.trustDomain }}"
           {{- end }}
-          {{- if .Values.global.trustDomain | default (index .Values.meshConfig "trustDomain") }}
+          {{- if .Values.meshConfig.trustDomain }}
           - name: TRUST_DOMAIN
-            value: "{{ .Values.global.trustDomain | default (index .Values.meshConfig "trustDomain") }}"
+            value: "{{ .Values.meshConfig.trustDomain }}"
           {{- end }}
           {{- if not .Values.runAsRoot }}
           - name: ISTIO_META_UNPRIVILEGED_POD
@@ -220,22 +206,17 @@ spec:
           {{- end }}
           {{- range $key, $val := .Values.env }}
           - name: {{ $key }}
-            value: {{ $val }}
+            value: "{{ $val }}"
           {{- end }}
           {{- range $key, $value := .Values.meshConfig.defaultConfig.proxyMetadata }}
           - name: {{ $key }}
             value: "{{ $value }}"
           {{- end }}
-          {{ $network_set := index .Values.env "ISTIO_META_NETWORK" }}
+          {{- $network_set := index .Values.env "ISTIO_META_NETWORK" }}
           {{- if and (not $network_set) .Values.global.network }}
           - name: ISTIO_META_NETWORK
-            value: {{ .Values.global.network }}
+            value: "{{ .Values.global.network }}"
           {{- end }}
-{{- if .Values.podAnnotations }}
-          - name: "ISTIO_METAJSON_ANNOTATIONS"
-            value: |
-{{ toJson .Values.podAnnotations | indent 16}}
-{{ end }}
           - name: ISTIO_META_CLUSTER_ID
             value: "{{ $.Values.global.multiCluster.clusterName | default `Kubernetes` }}"
           volumeMounts:
@@ -252,8 +233,6 @@ spec:
             mountPath: /var/run/secrets/tokens
             readOnly: true
 {{- end }}
-          - name: gatewaysdsudspath
-            mountPath: /var/run/ingress_gateway
           {{- if .Values.global.mountMtlsCerts }}
           # Use the key and cert mounted to /etc/certs/ for the in-cluster mTLS communications.
           - name: istio-certs
@@ -295,8 +274,6 @@ spec:
               fieldRef:
                 fieldPath: metadata.annotations
       - name: istio-envoy
-        emptyDir: {}
-      - name: gatewaysdsudspath
         emptyDir: {}
       - name: istio-data
         emptyDir: {}
@@ -341,4 +318,5 @@ spec:
 {{- else if .Values.global.defaultTolerations }}
       tolerations:
 {{ toYaml .Values.global.defaultTolerations | indent 6 }}
+{{- end }}
 {{- end }}

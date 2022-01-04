@@ -3,15 +3,19 @@ kind: Service
 metadata:
   name: istiod{{- if not (eq .Values.revision "") }}-{{ .Values.revision }}{{- end }}
   namespace: {{ .Release.Namespace }}
+  {{- if .Values.serviceAnnotations }}
+  annotations:
+{{ toYaml .Values.serviceAnnotations | indent 4 }}
+  {{- end }}
   labels:
     istio.io/rev: {{ .Values.revision | default "default" }}
     install.operator.istio.io/owning-resource: {{ .Values.ownerName | default "unknown" }}
     operator.istio.io/component: "Pilot"
     app: istiod
     istio: pilot
+    release: {{ .Release.Name }}
     chart: {{ template "istio-discovery.chart" . }}
     heritage: {{ .Release.Service }}
-    release: {{ .Release.Name }}
 spec:
   ports:
     - port: 15010
@@ -29,7 +33,7 @@ spec:
       protocol: TCP
   selector:
     app: istiod
-    {{- if ne .Values.revision ""}}
+    {{- if ne .Values.revision "" }}
     istio.io/rev: {{ .Values.revision }}
     {{- else }}
     # Label used by the 'default' service. For versioned deployments we match with app and version.

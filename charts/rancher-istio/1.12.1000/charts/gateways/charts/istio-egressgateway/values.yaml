@@ -15,22 +15,6 @@ ports:
   name: https
   targetPort: 8443
   protocol: TCP
-  # This is the port where sni routing happens
-- port: 15443
-  targetPort: 15443
-  name: tls
-  protocol: TCP
-
-# Enable cross-cluster access using SNI matching.
-# Make sure you set suffix if deploying multiple egress gateways.
-zvpn:
-  # Must be different for each egress namespace.
-  # Used to control the domain name suffix for zero vpn routing.
-  # Domain names ending with this suffix will be routed to this egress gateway
-  # automatically.
-  # This can be a real domain name ( istio.example.com )
-  suffix: global
-  enabled: false
 
 labels:
   app: istio-egressgateway
@@ -67,9 +51,14 @@ secretVolumes:
 
 configVolumes: []
 additionalContainers: []
+
+serviceAccount:
+  # Annotations to add to the service account
+  annotations: {}
+
 ### Advanced options ############
 # TODO: convert to real options, env should not be exposed
-env:
+env: {}
   # Set this to "external" if and only if you want the egress gateway to
   # act as a transparent SNI gateway that routes mTLS/TLS traffic to
   # external services defined using service entries, where the service
@@ -78,10 +67,6 @@ env:
   # the egress gateway sees the same set of endpoints as the sidecars
   # preserving backward compatibility
   # ISTIO_META_REQUESTED_NETWORK_VIEW: ""
-  # A gateway with this mode ensures that pilot generates an additional
-  # set of clusters for internal services but without Istio mTLS, to
-  # enable cross cluster routing.
-  ISTIO_META_ROUTER_MODE: "sni-dnat"
 
 nodeSelector: {}
 tolerations: []
@@ -110,6 +95,9 @@ podAntiAffinityTermLabelSelector: []
 # whether to run the gateway in a privileged container
 runAsRoot: false
 
+# The injection template to use for the gateway. If not set, no injection will be performed.
+injectionTemplate: ""
+
 # Revision is set as 'version' label and part of the resource names when installing multiple control planes.
 revision: ""
 
@@ -118,6 +106,11 @@ ownerName: ""
 
 meshConfig:
   enablePrometheusMerge: true
+
+  # The trust domain corresponds to the trust root of a system
+  # Refer to https://github.com/spiffe/spiffe/blob/master/standards/SPIFFE-ID.md#21-trust-domain
+  trustDomain: "cluster.local"
+
   defaultConfig:
     proxyMetadata: {}
     tracing:

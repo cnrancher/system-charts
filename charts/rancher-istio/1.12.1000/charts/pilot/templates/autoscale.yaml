@@ -6,12 +6,12 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     app: istiod
+    release: {{ .Release.Name }}
     istio.io/rev: {{ .Values.revision | default "default" }}
     install.operator.istio.io/owning-resource: {{ .Values.ownerName | default "unknown" }}
     operator.istio.io/component: "Pilot"
     chart: {{ template "istio-discovery.chart" . }}
     heritage: {{ .Release.Service }}
-    release: {{ .Release.Name }}
 spec:
   maxReplicas: {{ .Values.autoscaleMax }}
   minReplicas: {{ .Values.autoscaleMin }}

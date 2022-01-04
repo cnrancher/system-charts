@@ -2,16 +2,16 @@
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
-  name: {{ .Values.name | default "istio-ingressgateway" }}
+  name: {{ .Values.name }}
   namespace: {{ .Release.Namespace }}
   labels:
 {{ .Values.labels | toYaml | trim | indent 4 }}
+    release: {{ .Release.Name }}
     istio.io/rev: {{ .Values.revision | default "default" }}
     install.operator.istio.io/owning-resource: {{ .Values.ownerName | default "unknown" }}
     operator.istio.io/component: "IngressGateways"
     chart: {{ template "istio-ingress.chart" . }}
     heritage: {{ .Release.Service }}
-    release: {{ .Release.Name }}
 spec:
   minAvailable: 1
   selector:

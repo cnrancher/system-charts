@@ -28,13 +28,8 @@ ports:
   targetPort: 8443
   name: https
   protocol: TCP
-  # This is the port where sni routing happens
-- port: 15443
-  targetPort: 15443
-  name: tls
-  protocol: TCP
 
-# Scalability tunning
+# Scalability tuning
 # replicaCount: 1
 rollingMaxSurge: 100%
 rollingMaxUnavailable: 25%
@@ -57,11 +52,6 @@ loadBalancerIP: ""
 loadBalancerSourceRanges: []
 serviceAnnotations: {}
 
-# Enable cross-cluster access using SNI matching
-zvpn:
-  enabled: false
-  suffix: global
-
 # To generate an internal load balancer:
 # --set serviceAnnotations.cloud.google.com/load-balancer-type=internal
 #serviceAnnotations:
@@ -69,18 +59,6 @@ zvpn:
 
 podAnnotations: {}
 type: LoadBalancer #change to NodePort, ClusterIP or LoadBalancer if need be
-
-#### MESH EXPANSION PORTS  ########
-# Pilot and Citadel MTLS ports are enabled in gateway - but will only redirect
-# to pilot/citadel if global.meshExpansion settings are enabled.
-# Delete these ports if mesh expansion is not enabled, to avoid
-# exposing unnecessary ports on the web.
-# You can remove these ports if you are not using mesh expansion
-meshExpansionPorts:
-- port: 15012
-  targetPort: 15012
-  name: tcp-istiod
-####### end MESH EXPANSION PORTS ######
 
 ##############
 secretVolumes:
@@ -98,13 +76,12 @@ ingressPorts: []
 additionalContainers: []
 configVolumes: []
 
-### Advanced options ############
-env:
-  # A gateway with this mode ensures that pilot generates an additional
-  # set of clusters for internal services but without Istio mTLS, to
-  # enable cross cluster routing.
-  ISTIO_META_ROUTER_MODE: "sni-dnat"
+serviceAccount:
+  # Annotations to add to the service account
+  annotations: {}
 
+### Advanced options ############
+env: {}
 nodeSelector: {}
 tolerations: []
 
@@ -132,6 +109,9 @@ podAntiAffinityTermLabelSelector: []
 # whether to run the gateway in a privileged container
 runAsRoot: false
 
+# The injection template to use for the gateway. If not set, no injection will be performed.
+injectionTemplate: ""
+
 # Revision is set as 'version' label and part of the resource names when installing multiple control planes.
 revision: ""
 
@@ -140,7 +120,11 @@ ownerName: ""
 
 meshConfig:
   enablePrometheusMerge: true
-#  trustDomain: ""
+
+  # The trust domain corresponds to the trust root of a system
+  # Refer to https://github.com/spiffe/spiffe/blob/master/standards/SPIFFE-ID.md#21-trust-domain
+  trustDomain: "cluster.local"
+
   defaultConfig:
     proxyMetadata: {}
     tracing:
@@ -152,4 +136,3 @@ meshConfig:
     #        sni:               # example: tracer.somedomain
     #        subjectAltNames: []
     # - tracer.somedomain
-

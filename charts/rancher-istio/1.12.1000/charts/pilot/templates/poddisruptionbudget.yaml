@@ -9,16 +9,16 @@ metadata:
     istio.io/rev: {{ .Values.revision | default "default" }}
     install.operator.istio.io/owning-resource: {{ .Values.ownerName | default "unknown" }}
     operator.istio.io/component: "Pilot"
+    release: {{ .Release.Name }}
     istio: pilot
     chart: {{ template "istio-discovery.chart" . }}
     heritage: {{ .Release.Service }}
-    release: {{ .Release.Name }}
 spec:
   minAvailable: 1
   selector:
     matchLabels:
       app: istiod
-      {{- if ne .Values.revision ""}}
+      {{- if ne .Values.revision "" }}
       istio.io/rev: {{ .Values.revision }}
       {{- else }}
       istio: pilot
