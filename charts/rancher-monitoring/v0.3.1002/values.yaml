@@ -310,6 +310,7 @@ prometheus:
     - name: POD_IP
       valueFrom:
         fieldRef:  
+          fieldPath: status.podIP
     - name: MONITORING_NAMESPACE
       valueFrom:
         fieldRef:

@@ -44,58 +44,58 @@ spec:
       action: replace
       separator: ":"
       regex: (.+)
-      replacement: {{ .Values.global.clusterName }}:$1
+      replacement: {{ $.Values.global.clusterName }}:$1
     - sourceLabels:
       - __name__
-      target_label: resource
+      targetLabel: resource
       action: replace
       regex: kube_pod_container_resource_(requests|limits)_(cpu|memory)_(cores|bytes)
       replacement: $2
     - sourceLabels:
       - __name__
-      target_label: resource
+      targetLabel: resource
       action: replace
       regex: kube_node_status_(capacity|allocatable)_(cpu|memory)_(cores|bytes)
       replacement: $2
     - sourceLabels:
       - __name__
-      target_label: resource
+      targetLabel: resource
       action: replace
       regex: kube_node_status_(capacity|allocatable)_(pods)
       replacement: $2
     - sourceLabels:
       - __name__
-      target_label: unit
+      targetLabel: unit
       action: replace
       regex: kube_pod_container_resource_(requests|limits)_(cpu|memory)_(cores|bytes)
       replacement: $3
     - sourceLabels:
       - __name__
-      target_label: unit
+      targetLabel: unit
       action: replace
       regex: kube_node_status_(capacity|allocatable)_(cpu|memory)_(cores|bytes)
       replacement: $3
     - sourceLabels:
       - __name__
-      target_label: unit
+      targetLabel: unit
       action: replace
       regex: kube_node_status_(capacity|allocatable)_(pods)
       replacement: integer
     - sourceLabels:
       - __name__
-      target_label: __name__
+      targetLabel: __name__
       action: replace
       regex: kube_pod_container_resource_(requests|limits)_(cpu|memory)_(cores|bytes)
       replacement: kube_pod_container_resource_($1)
     - sourceLabels:
       - __name__
-      target_label: __name__
+      targetLabel: __name__
       action: replace
       regex: kube_node_status_(capacity|allocatable)_(cpu|memory)_(cores|bytes)
       replacement: kube_node_status_($1)
     - sourceLabels:
       - __name__
-      target_label: __name__
+      targetLabel: __name__
       action: replace
       regex: kube_node_status_(capacity|allocatable)_(pods)
       replacement: kube_node_status_($1)

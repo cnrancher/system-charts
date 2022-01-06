@@ -309,7 +309,8 @@ prometheus:
     env:
     - name: POD_IP
       valueFrom:
-        fieldRef:  
+        fieldRef:
+          fieldPath: status.podIP  
     - name: MONITORING_NAMESPACE
       valueFrom:
         fieldRef:
