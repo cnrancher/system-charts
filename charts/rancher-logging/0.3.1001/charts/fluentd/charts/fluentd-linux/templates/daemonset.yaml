@@ -92,38 +92,16 @@ spec:
 {{- end }}
 {{- end }}
 {{- if .Values.livenessProbe.enabled }}
-        # Liveness probe is aimed to help in situarions where fluentd
-        # silently hangs for no apparent reasons until manual restart.
-        # The idea of this probe is that if fluentd is not queueing or
-        # flushing chunks for 5 minutes, something is not right. If
-        # you want to change the fluentd configuration, reducing amount of
-        # logs fluentd collects, consider changing the threshold or turning
-        # liveness probe off completely.
         livenessProbe:
-          initialDelaySeconds: 600
+          httpGet:
+            path: /metrics
+            port: 24231
+            scheme: HTTP
+          initialDelaySeconds: 60
           periodSeconds: 60
-          exec:
-            command:
-            - '/bin/sh'
-            - '-c'
-            - >
-              LIVENESS_THRESHOLD_SECONDS=${LIVENESS_THRESHOLD_SECONDS:-300};
-              STUCK_THRESHOLD_SECONDS=${LIVENESS_THRESHOLD_SECONDS:-900};
-              if [ ! -e /fluentd/log/buffer ];
-              then
-                exit 1;
-              fi;
-              touch -d "${STUCK_THRESHOLD_SECONDS} seconds ago" /tmp/marker-stuck;
-              if [[ -z "$(find /fluentd/log/buffer -type f -newer /tmp/marker-stuck -print -quit)" ]];
-              then
-                rm -rf /fluentd/log/buffer;
-                exit 1;
-              fi;
-              touch -d "${LIVENESS_THRESHOLD_SECONDS} seconds ago" /tmp/marker-liveness;
-              if [[ -z "$(find /fluentd/log/buffer -type f -newer /tmp/marker-liveness -print -quit)" ]];
-              then
-                exit 1;
-              fi;
+          timeoutSeconds: 3
+          failureThreshold: 3
+          successThreshold: 1
 {{- end }}
       - name: {{ template "fluentd.fullname" . }}-{{ .Values.configmapReload.name }}
         image: {{ template "system_default_registry" . }}{{ .Values.configmapReload.image.repository }}:{{ .Values.configmapReload.image.tag }}
