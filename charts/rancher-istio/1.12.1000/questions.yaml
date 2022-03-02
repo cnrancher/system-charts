@@ -1,0 +1,3 @@
+labels:
+  rancher.istio.v1.12.1000: 1.12.1
+rancher_min_version: 2.5.12
