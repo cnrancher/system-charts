@@ -20,11 +20,11 @@ grafana:
   apiGroup: "monitoring.coreos.com"
   image:
     repository: rancher/grafana-grafana
-    tag: 6.3.6
+    tag: 7.1.5
     pullPolicy: IfNotPresent
     proxy:
       repository: cnrancher/nginx
-      tag: 1.16.1
+      tag: 1.21.6
   nodeSelector: {}
   resources:
     core:
@@ -61,7 +61,7 @@ thanos:
     pullPolicy: IfNotPresent
     proxy:
       repository: cnrancher/nginx
-      tag: 1.16.1
+      tag: 1.21.6
   # See https://thanos.io/storage.md/
   objectConfig: {}
 
