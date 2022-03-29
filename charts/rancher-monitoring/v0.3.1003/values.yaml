@@ -391,6 +391,8 @@ prometheus:
   livenessProbe: {}
   readinessProbe: {}
   enableAuthToken: true
+  serviceNodePort: false
+  nodePort: 0
 
 global:
   systemDefaultRegistry: ""
