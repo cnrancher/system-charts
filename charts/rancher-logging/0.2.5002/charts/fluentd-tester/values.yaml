@@ -2,10 +2,11 @@ labels: {}
 
 image:
   repository: cnrancher/fluentd
-  tag: v0.1.30-ent
+  tag: v0.1.30-ent2
   pullPolicy: IfNotPresent
 
-resources: {}
+resources:
+  {}
   # limits:
   #   cpu: 100m
   #   memory: 500Mi

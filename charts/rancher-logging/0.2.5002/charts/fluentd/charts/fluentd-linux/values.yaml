@@ -3,10 +3,11 @@ labels: {}
 
 image:
   repository: cnrancher/fluentd
-  tag: v0.1.30-ent
+  tag: v0.1.30-ent2
   pullPolicy: IfNotPresent
 
-resources: {}
+resources:
+  {}
   # limits:
   #   cpu: 100m
   #   memory: 500Mi
@@ -51,8 +52,8 @@ cluster:
 configmapReload:
   name: reloader
   image:
-    repository: rancher/configmap-reload
-    tag: v0.3.0-rancher4
+    repository: cnrancher/jimmidyson-configmap-reload
+    tag: v0.7.1
     pullPolicy: IfNotPresent
   resources: {}
 
@@ -60,6 +61,6 @@ watcher:
   name: watcher
   image:
     repository: cnrancher/watcher
-    tag: v1.0.7-ent
+    tag: v1.0.7-ent2
     pullPolicy: IfNotPresent
-  resources: {}  
+  resources: {}
