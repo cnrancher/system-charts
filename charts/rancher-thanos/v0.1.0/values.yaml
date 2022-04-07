@@ -10,10 +10,8 @@ rancherHost: ""
 token: ""
 apiToken: ""
 
-
 grpcProxyUrl: ""
 privateCa: false
-
 
 grafana:
   enabled: false
@@ -74,7 +72,7 @@ thanos:
         cpu: "1"
       requests:
         memory: 256Mi
-        cpu: 100m 
+        cpu: 100m
     proxy:
       resources:
         limits:
@@ -91,7 +89,6 @@ thanos:
       port: 80
     extraArgs: []
 
-  
   # Thanos store gateway
   store:
     enabled: false
@@ -121,13 +118,12 @@ thanos:
     tolerations: []
     extraArgs: []
 
-
 ui:
   enabled: true
   replicaCount: 1
   image:
     repository: cnrancher/global-monitoring-ui
-    tag: 0.0.8
+    tag: 0.0.9
     pullPolicy: IfNotPresent
   resources:
     limits:
@@ -146,6 +142,6 @@ ui:
   service:
     type: ClusterIP
     port: 80
-    
+
 global:
   systemDefaultRegistry: ""

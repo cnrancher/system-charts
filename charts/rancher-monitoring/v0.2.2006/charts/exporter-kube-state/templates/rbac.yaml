@@ -12,7 +12,8 @@ rules:
 - apiGroups:
   - ""
   resources:
-  - namespaces
+  - configmaps
+  - secrets
   - nodes
   - pods
   - services
@@ -21,85 +22,93 @@ rules:
   - limitranges
   - persistentvolumeclaims
   - persistentvolumes
+  - namespaces
   - endpoints
-  - configmaps
-  - secrets
   verbs:
-  - "list"
-  - "watch"
+  - list
+  - watch
 - apiGroups:
-  - "extensions"
-  - "apps"
+  - apps
   resources:
+  - statefulsets
   - daemonsets
   - deployments
   - replicasets
   verbs:
-  - "list"
-  - "watch"
+  - list
+  - watch
 - apiGroups:
-  - "apps"
-  resources:
-  - statefulsets
-  - deployments
-  verbs:
-  - "list"
-  - "watch"
-- apiGroups:
-  - "batch"
+  - batch
   resources:
   - cronjobs
   - jobs
   verbs:
-  - "list"
-  - "watch"
+  - list
+  - watch
 - apiGroups:
-  - "autoscaling"
+  - autoscaling
   resources:
   - horizontalpodautoscalers
   verbs:
-  - "list"
-  - "watch"
+  - list
+  - watch
 - apiGroups:
-  - "policy"
+  - authentication.k8s.io
   resources:
-  - "poddisruptionbudgets"
+  - tokenreviews
   verbs:
-  - "list"
-  - "watch"
+  - create
 - apiGroups:
-  - "extensions"
-  - "networking.k8s.io"
+  - authorization.k8s.io
   resources:
-  - ingresses
-  - networkpolicies
+  - subjectaccessreviews
   verbs:
-  - "list"
-  - "watch"
+  - create
 - apiGroups:
-  - "certificates.k8s.io"
+  - policy
+  resources:
+  - poddisruptionbudgets
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - certificates.k8s.io
   resources:
   - certificatesigningrequests
   verbs:
-  - "list"
-  - "watch"
+  - list
+  - watch
 - apiGroups:
-  - "storage.k8s.io"
+  - storage.k8s.io
   resources:
   - storageclasses
   - volumeattachments
   verbs:
-  - "list"
-  - "watch"
+  - list
+  - watch
 - apiGroups:
-  - "admissionregistration.k8s.io"
+  - admissionregistration.k8s.io
   resources:
-  - validatingwebhookconfigurations
   - mutatingwebhookconfigurations
+  - validatingwebhookconfigurations
   verbs:
-  - "list"
-  - "watch"
-
+  - list
+  - watch
+- apiGroups:
+  - networking.k8s.io
+  resources:
+  - networkpolicies
+  - ingresses
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - list
+  - watch
 ---
 apiVersion: v1
 kind: ServiceAccount
