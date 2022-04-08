@@ -50,12 +50,12 @@ grafana:
     port: 80
   # Already exist ServiceAccount
   serviceAccountName: ""
-  prometheusDatasourceURL: "http://access-thanos"
+  prometheusDatasourceURL: "http://access-thanos/global-monitoring"
 
 thanos:
   image:
     repository: cnrancher/thanos
-    tag: v0.17.0
+    tag: v0.24.0
     pullPolicy: IfNotPresent
     proxy:
       repository: cnrancher/nginx
@@ -88,6 +88,8 @@ thanos:
       type: ClusterIP
       port: 80
     extraArgs: []
+    externalPrefix: global-monitoring
+    storeInterval: 30s
 
   # Thanos store gateway
   store:

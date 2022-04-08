@@ -32,16 +32,9 @@ spec:
           imagePullPolicy: {{ .Values.thanos.image.pullPolicy }}
           args:
           - query
-          {{- if .Values.clusterIds }}
-          {{- range $clusterId := (split ":" .Values.clusterIds) }}
-          - --store
-          - "{{ $clusterId }}:80"
-          {{- end }}
-          {{- end }}
-          {{- if .Values.thanos.store.enabled }}
-          - --store
-          - thanos-store-{{ .Release.Name }}:10901
-          {{- end }}
+          - --web.external-prefix={{ .Values.thanos.query.externalPrefix }}
+          - --store.sd-files=/etc/thanos/thanos-store.yml
+          - --store.sd-interval={{ .Values.thanos.query.storeInterval }}
         {{- range .Values.thanos.query.extraArgs }}
           {{- $pair := regexSplit "=" . 2 }}
           {{- if eq 2 (len $pair) }}
@@ -65,6 +58,9 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.thanos.query.resources | nindent 12 }}
+          volumeMounts:
+          - mountPath: /etc/thanos
+            name: thanos-store
         - name: nginx
           image: "{{ template "system_default_registry" . }}{{ .Values.thanos.image.proxy.repository }}:{{ .Values.thanos.image.proxy.tag }}"
           imagePullPolicy: {{ .Values.thanos.image.pullPolicy }}
@@ -78,14 +74,6 @@ spec:
           - mountPath: /etc/kubernetes/ssl/certs
             name: ca-cert
           {{- end }}
-      hostAliases:
-      {{- if .Values.clusterIds }}
-      - hostnames:
-      {{- range $clusterId := (split ":" .Values.clusterIds) }}
-        - {{ $clusterId }}
-      {{- end }}
-        ip: 127.0.0.1
-      {{- end }}
       nodeSelector:
       {{- include "linux-node-selector" . | nindent 8 }}
       {{- with .Values.thanos.query.nodeSelector }}
@@ -107,6 +95,9 @@ spec:
             path: default.conf
           name: proxy-{{ .Release.Name }}
         name: nginx-config
+      - configMap:
+          name: thanos-query-stores
+        name: thanos-store
       {{- if .Values.privateCa }}
       - name: ca-cert
         hostPath:
