@@ -15,3 +15,8 @@
 {{- $name := include "app.name" . -}}
 {{- printf "%s-%s-%s-dashboards" $name "istio" .Release.Name -}}
 {{- end -}}
+
+{{- define "app.dashboards.rancher-fullname" -}}
+{{- $name := include "app.name" . -}}
+{{- printf "%s-%s-%s-dashboards" $name "rancher" .Release.Name -}}
+{{- end -}}

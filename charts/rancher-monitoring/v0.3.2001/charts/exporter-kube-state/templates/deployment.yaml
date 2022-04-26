@@ -23,6 +23,10 @@ spec:
     spec:
       containers:
       - name: kube-state
+        args:
+        {{- if .Values.metricLabelsAllowlist }}
+        - --metric-labels-allowlist={{ .Values.metricLabelsAllowlist | join "," }}
+        {{- end }}
         image: {{ template "system_default_registry" . }}{{ .Values.image.repository }}:{{ .Values.image.tag }}
         ports:
         - name: http

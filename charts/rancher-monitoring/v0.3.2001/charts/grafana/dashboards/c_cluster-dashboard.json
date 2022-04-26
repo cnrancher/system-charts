@@ -3414,7 +3414,7 @@
           "steppedLine": true,
           "targets": [
             {
-              "expr": "sum (rate (container_cpu_usage_seconds_total{pod_name!=\"\",container_name!=\"POD\",node=~\"^$Node$\"}[5m])) by (pod_name)",
+              "expr": "sum (rate (container_cpu_usage_seconds_total{pod_name!=\"\",container_name!=\"POD\",container_name!=\"\",node=~\"^$Node$\"}[5m])) by (pod_name)",
               "format": "time_series",
               "interval": "10s",
               "intervalFactor": 1,
@@ -3894,7 +3894,7 @@
           "steppedLine": true,
           "targets": [
             {
-              "expr": "sum (container_memory_working_set_bytes{pod_name!=\"\",node=~\"^$Node$\"}) by (pod_name)",
+              "expr": "sum (container_memory_working_set_bytes{pod_name!=\"\",node=~\"^$Node$\",container_name!=\"\",container_name!=\"POD\"}) by (pod_name)",
               "format": "time_series",
               "interval": "10s",
               "intervalFactor": 1,
