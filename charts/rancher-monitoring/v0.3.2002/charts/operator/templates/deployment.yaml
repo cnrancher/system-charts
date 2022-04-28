@@ -48,6 +48,15 @@ spec:
             - --prometheus-config-reloader={{ template "system_default_registry" . }}{{ .Values.image.prometheusConfigReloader.repository }}:{{ .Values.image.prometheusConfigReloader.tag }}
             - --config-reloader-image={{ template "system_default_registry" . }}{{ .Values.image.configmapReload.repository }}:{{ .Values.image.configmapReload.tag }}
             - --labels={{ .Values.apiGroup }}=true
+            {{- if .Values.image.prometheusConfigReloader.resources.limits.cpu }}
+            - --config-reloader-cpu={{ .Values.image.prometheusConfigReloader.resources.limits.cpu }}
+            {{- end }}
+            {{- if .Values.image.prometheusConfigReloader.resources.limits.memory }}
+            - --config-reloader-memory={{ .Values.image.prometheusConfigReloader.resources.limits.memory }}
+            {{- end }}
+            {{- range .Values.extraArgs }}
+            - {{ . }}
+            {{- end }}
           ports:
           - containerPort: 8080
             name: http

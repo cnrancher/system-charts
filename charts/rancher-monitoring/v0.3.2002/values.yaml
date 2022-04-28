@@ -8,6 +8,10 @@ operator:
     prometheusConfigReloader:
       repository: rancher/mirrored-coreos-prometheus-config-reloader
       tag: v0.40.0
+      resources:
+        limits:
+          cpu: 100m
+          memory: 25Mi
     configmapReload:
       repository: rancher/mirrored-jimmidyson-configmap-reload
       tag: v0.3.0
@@ -25,6 +29,7 @@ operator:
   ## Already exist ServiceAccount
   ##
   serviceAccountName: ""
+  extraArgs: []
 
 exporter-coredns:
   enabled: false
