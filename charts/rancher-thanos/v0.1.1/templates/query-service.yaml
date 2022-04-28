@@ -24,3 +24,20 @@ spec:
     chart: {{ .Chart.Name }}
     release: {{ .Release.Name }}
     component: query
+---
+{{- range $clusterId := (split ":" .Values.clusterIds) }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $clusterId }}
+spec:
+  clusterIP: None
+  type: ClusterIP
+  selector:
+    app: {{ template "app.fullname" $ }}
+    chart: {{ $.Chart.Name }}
+    release: {{ $.Release.Name }}
+    component: query
+---
+{{- end }}
+
