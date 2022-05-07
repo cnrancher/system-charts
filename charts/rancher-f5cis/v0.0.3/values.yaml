@@ -1,0 +1,18 @@
+partition: ""
+bigip:
+  url: ""
+  username: ""
+  password: ""
+network:
+  type: ""
+  poolMemberType: ""
+  flannelName: ""
+image:
+  repository: "cnrancher/k8s-bigip-ctlr"
+  tag: "2.5.1"
+insecure: true
+certsConfigmap: ""
+extraArgs:
+  #key: value
+global:
+  systemDefaultRegistry: ""
