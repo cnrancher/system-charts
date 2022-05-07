@@ -1,0 +1,16 @@
+apiVersion: v1
+description: F5 CIS
+engine: gotpl
+maintainers:
+- name: jianghang8421
+  email: hang.jiang@rancher.com
+name: rancher-f5cis
+sources:
+- https://github.com/F5Networks/k8s-bigip-ctlr
+version: 0.0.3
+appVersion: "2.5.1"
+home: https://github.com/F5Networks/k8s-bigip-ctlr
+keywords:
+- f5
+- bigip
+icon: https://cdn.f5.com/websites/support/assets/images/logo.svg
