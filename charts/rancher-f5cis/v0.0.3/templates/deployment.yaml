@@ -49,6 +49,9 @@ spec:
 {{- else if .Values.certsConfigmap }}
             - "--trusted-certs-cfgmap={{.Values.certsConfigmap}}"
 {{- end }}
+{{- if .Values.ipam.enable }}
+            - "--ipam=true"
+{{- end }}
             - "--custom-resource-mode=true"
           {{- range $key, $value := .Values.extraArgs }}
             {{- if $value }}
