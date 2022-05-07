@@ -9,10 +9,20 @@ network:
   flannelName: ""
 image:
   repository: "cnrancher/k8s-bigip-ctlr"
-  tag: "2.5.1"
+  tag: "2.8.1"
 insecure: true
 certsConfigmap: ""
 extraArgs:
   #key: value
 global:
   systemDefaultRegistry: ""
+ipam:
+  enable: false
+  image:
+    repository: "cnrancher/f5-ipam-controller"
+    tag: "0.1.6"
+  volume:
+    pvc: ""
+  ipRange:
+    #key: value
+  installIPAMCRD: false
