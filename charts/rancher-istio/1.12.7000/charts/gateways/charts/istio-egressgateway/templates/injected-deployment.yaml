@@ -100,7 +100,7 @@ spec:
           {{- end }}
           {{- range $key, $val := .Values.env }}
           - name: {{ $key }}
-            value: {{ $val }}
+            value: {{ $val | quote }}
           {{- end }}
           volumeMounts:
           {{- range .Values.secretVolumes }}
