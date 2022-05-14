@@ -16,7 +16,7 @@
   "editable": true,
   "gnetId": 13105,
   "graphTooltip": 0,
-  "iteration": 1652427532368,
+  "iteration": 1652536673254,
   "links": [],
   "panels": [
     {
@@ -38,10 +38,12 @@
       "datasource": "RANCHER_MONITORING",
       "fieldConfig": {
         "defaults": {
+          "custom": {},
           "decimals": 1,
           "mappings": [],
           "max": 1,
           "min": 0,
+          "nullValueMode": "connected",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -81,10 +83,9 @@
           "fields": "",
           "values": false
         },
-        "showUnfilled": true,
-        "text": {}
+        "showUnfilled": true
       },
-      "pluginVersion": "7.5.8",
+      "pluginVersion": "7.1.5",
       "targets": [
         {
           "expr": "sum (container_memory_working_set_bytes{container_name!=\"POD\",container_name!=\"\",pod_name!=\"\",pod_name=~\"^$Pod$\",node=~\"^$Node$\"}) / sum (machine_memory_bytes{node=~\"^$Node$\"})",
@@ -121,10 +122,12 @@
       "datasource": "RANCHER_MONITORING",
       "fieldConfig": {
         "defaults": {
+          "custom": {},
           "decimals": 2,
           "mappings": [],
           "max": 1,
           "min": 0,
+          "nullValueMode": "connected",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -164,10 +167,9 @@
           "fields": "",
           "values": false
         },
-        "showUnfilled": true,
-        "text": {}
+        "showUnfilled": true
       },
-      "pluginVersion": "7.5.8",
+      "pluginVersion": "7.1.5",
       "targets": [
         {
           "expr": "sum (rate(container_cpu_usage_seconds_total{container_name!=\"POD\",container_name!=\"\",pod_name!=\"\",pod_name=~\"^$Pod$\",node=~\"^$Node$\"}[5m])) / sum (machine_cpu_cores{node=~\"^$Node$\"})",
@@ -200,6 +202,7 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
+          "custom": {},
           "mappings": [],
           "max": 1000,
           "min": 1,
@@ -241,10 +244,9 @@
           "fields": "",
           "values": false
         },
-        "showUnfilled": true,
-        "text": {}
+        "showUnfilled": true
       },
-      "pluginVersion": "7.5.8",
+      "pluginVersion": "7.1.5",
       "targets": [
         {
           "expr": "count(kube_node_info{node=~\"^$Node$\"})",
@@ -451,7 +453,7 @@
           }
         ]
       },
-      "pluginVersion": "7.5.8",
+      "pluginVersion": "7.1.5",
       "targets": [
         {
           "expr": "count(kube_pod_info{node=~\"^$Node$\"}) by (namespace)",
@@ -554,7 +556,9 @@
       "editable": true,
       "error": false,
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "custom": {}
+        },
         "overrides": []
       },
       "fill": 1,
@@ -592,7 +596,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.8",
+      "pluginVersion": "7.1.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -668,6 +672,7 @@
       "datasource": "RANCHER_MONITORING",
       "fieldConfig": {
         "defaults": {
+          "custom": {},
           "decimals": 1,
           "mappings": [],
           "max": 1000000000000,
@@ -710,10 +715,9 @@
           "fields": "",
           "values": false
         },
-        "showUnfilled": true,
-        "text": {}
+        "showUnfilled": true
       },
-      "pluginVersion": "7.5.8",
+      "pluginVersion": "7.1.5",
       "targets": [
         {
           "expr": "sum (machine_memory_bytes{node=~\"^$Node$\"})",
@@ -753,6 +757,7 @@
       "datasource": "RANCHER_MONITORING",
       "fieldConfig": {
         "defaults": {
+          "custom": {},
           "decimals": 2,
           "mappings": [],
           "max": 500,
@@ -795,10 +800,9 @@
           "fields": "",
           "values": false
         },
-        "showUnfilled": true,
-        "text": {}
+        "showUnfilled": true
       },
-      "pluginVersion": "7.5.8",
+      "pluginVersion": "7.1.5",
       "targets": [
         {
           "expr": "sum (machine_cpu_cores{node=~\"^$Node$\"})",
@@ -838,6 +842,7 @@
       "datasource": "RANCHER_MONITORING",
       "fieldConfig": {
         "defaults": {
+          "custom": {},
           "decimals": 2,
           "mappings": [],
           "max": 8000000000000,
@@ -921,10 +926,9 @@
           "fields": "",
           "values": false
         },
-        "showUnfilled": true,
-        "text": {}
+        "showUnfilled": true
       },
-      "pluginVersion": "7.5.8",
+      "pluginVersion": "7.1.5",
       "targets": [
         {
           "expr": "sum(container_fs_usage_bytes{device=~\"^/dev/.*$\",node=~\"^$Node$\"}) / sum (container_fs_limit_bytes{device=~\"^/dev/.*$\",node=~\"^$Node$\"})",
@@ -961,8 +965,7 @@
       "fieldConfig": {
         "defaults": {
           "custom": {
-            "align": "center",
-            "filterable": false
+            "align": "center"
           },
           "mappings": [],
           "thresholds": {
@@ -1003,7 +1006,7 @@
                 "value": [
                   {
                     "from": "",
-                    "id": 1,
+                    "id": 0,
                     "text": "ready",
                     "to": "",
                     "type": 1,
@@ -1011,7 +1014,7 @@
                   },
                   {
                     "from": "",
-                    "id": 2,
+                    "id": 1,
                     "text": "notReady",
                     "to": "",
                     "type": 1,
@@ -1060,7 +1063,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "CPU使用率"
+              "options": "CPU使用%"
             },
             "properties": [
               {
@@ -1124,7 +1127,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "CPU总"
+              "options": "总CPU"
             },
             "properties": [
               {
@@ -1248,7 +1251,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "内存总"
+              "options": "总内存"
             },
             "properties": [
               {
@@ -1304,7 +1307,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "磁盘总"
+              "options": "总磁盘"
             },
             "properties": [
               {
@@ -1355,10 +1358,9 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "7.5.8",
+      "pluginVersion": "7.1.5",
       "targets": [
         {
-          "exemplar": true,
           "expr": "kube_node_status_condition{status=\"true\",node=~\"^$Node$\"} == 1",
           "format": "table",
           "instant": true,
@@ -1395,7 +1397,7 @@
           "format": "table",
           "instant": true,
           "interval": "",
-          "legendFormat": "CPU总",
+          "legendFormat": "总CPU",
           "refId": "E"
         },
         {
@@ -1419,7 +1421,7 @@
           "format": "table",
           "instant": true,
           "interval": "",
-          "legendFormat": "CPU使用率",
+          "legendFormat": "CPU使用%",
           "refId": "H"
         },
         {
@@ -1451,7 +1453,7 @@
           "format": "table",
           "instant": true,
           "interval": "",
-          "legendFormat": "内存总",
+          "legendFormat": "总内存",
           "refId": "L"
         },
         {
@@ -1507,7 +1509,7 @@
           "format": "table",
           "instant": true,
           "interval": "",
-          "legendFormat": "磁盘总",
+          "legendFormat": "总磁盘",
           "refId": "S"
         },
         {
@@ -1591,21 +1593,21 @@
               "Value #B": "Pod",
               "Value #C": "Pod上限",
               "Value #D": "CPU使用",
-              "Value #E": "CPU总",
+              "Value #E": "总CPU",
               "Value #F": "CPU请求",
               "Value #G": "CPU限制",
-              "Value #H": "CPU使用率",
+              "Value #H": "CPU使用%",
               "Value #I": "CPU请求%",
               "Value #J": "CPU限制%",
               "Value #K": "内存使用",
-              "Value #L": "内存总",
+              "Value #L": "总内存",
               "Value #M": "内存请求",
               "Value #N": "内存限制",
               "Value #O": "内存使用%",
               "Value #P": "内存请求%",
               "Value #Q": "内存限制%",
               "Value #R": "磁盘使用",
-              "Value #S": "磁盘总",
+              "Value #S": "总磁盘",
               "Value #T": "磁盘使用%",
               "node": "节点"
             }
@@ -1633,7 +1635,9 @@
       "datasource": "RANCHER_MONITORING",
       "description": "",
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "custom": {}
+        },
         "overrides": []
       },
       "fontSize": "100%",
@@ -2073,7 +2077,9 @@
       "columns": [],
       "datasource": "RANCHER_MONITORING",
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "custom": {}
+        },
         "overrides": []
       },
       "fontSize": "100%",
@@ -2498,7 +2504,9 @@
       "columns": [],
       "datasource": "RANCHER_MONITORING",
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "custom": {}
+        },
         "overrides": []
       },
       "fontSize": "100%",
@@ -3077,7 +3085,9 @@
       "editable": true,
       "error": false,
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "custom": {}
+        },
         "overrides": []
       },
       "fill": 0,
@@ -3117,7 +3127,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.8",
+      "pluginVersion": "7.1.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3127,7 +3137,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(container_cpu_usage_seconds_total{container=~\"$Container\",container !=\"\",container!=\"POD\",namespace=~\"$Namespace\"}[2m])) by (container) / (sum(container_spec_cpu_quota{container=~\"$Container\",container !=\"\",container!=\"POD\",namespace=~\"$Namespace\"}/100000) by (container)) * 100",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{container=~\"$Container\",container!=\"\",container!=\"POD\",namespace=~\"$Namespace\"}[2m])) by (container) / (sum(container_spec_cpu_quota{container=~\"$Container\",container !=\"\",container!=\"POD\",namespace=~\"$Namespace\"}/100000) by (container)) * 100",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -3190,7 +3200,9 @@
       "editable": true,
       "error": false,
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "custom": {}
+        },
         "overrides": []
       },
       "fill": 0,
@@ -3227,7 +3239,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.8",
+      "pluginVersion": "7.1.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3237,7 +3249,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum (container_memory_working_set_bytes{container=~\"$Container\",container !=\"\",container!=\"POD\",namespace=~\"$Namespace\"}) by (container)/ sum(container_spec_memory_limit_bytes{container=~\"$Container\",container !=\"\",container!=\"POD\",namespace=~\"$Namespace\"}) by (container) * 100",
+          "expr": "sum (container_memory_working_set_bytes{container=~\"$Container\",container!=\"\",container!=\"POD\",namespace=~\"$Namespace\"}) by (container)/ sum(container_spec_memory_limit_bytes{container=~\"$Container\",container !=\"\",container!=\"POD\",namespace=~\"$Namespace\"}) by (container) * 100",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "WSS：{{ container }}",
@@ -3246,7 +3258,7 @@
           "step": 10
         },
         {
-          "expr": "sum (container_memory_rss{container=~\"$Container\",container !=\"\",container!=\"POD\",namespace=~\"$Namespace\"}) by (container)/ sum(container_spec_memory_limit_bytes{container=~\"$Container\",container !=\"\",container!=\"POD\",namespace=~\"$Namespace\"}) by (container) * 100",
+          "expr": "sum (container_memory_rss{container=~\"$Container\",container!=\"\",container!=\"POD\",namespace=~\"$Namespace\"}) by (container)/ sum(container_spec_memory_limit_bytes{container=~\"$Container\",container !=\"\",container!=\"POD\",namespace=~\"$Namespace\"}) by (container) * 100",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "RSS：{{ container }}",
@@ -3307,7 +3319,9 @@
       "editable": true,
       "error": false,
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "custom": {}
+        },
         "overrides": []
       },
       "fill": 0,
@@ -3344,7 +3358,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.8",
+      "pluginVersion": "7.1.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3438,7 +3452,9 @@
       "editable": true,
       "error": false,
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "custom": {}
+        },
         "overrides": []
       },
       "fill": 0,
@@ -3478,7 +3494,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.8",
+      "pluginVersion": "7.1.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3551,7 +3567,9 @@
       "editable": true,
       "error": false,
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "custom": {}
+        },
         "overrides": []
       },
       "fill": 0,
@@ -3588,7 +3606,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.8",
+      "pluginVersion": "7.1.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3678,7 +3696,9 @@
       "editable": true,
       "error": false,
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "custom": {}
+        },
         "overrides": []
       },
       "fill": 0,
@@ -3715,7 +3735,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.8",
+      "pluginVersion": "7.1.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3810,7 +3830,7 @@
     }
   ],
   "refresh": "",
-  "schemaVersion": 27,
+  "schemaVersion": 26,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -3818,13 +3838,12 @@
       {
         "allValue": "",
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "All",
           "value": "$__all"
         },
         "datasource": "RANCHER_MONITORING",
         "definition": "label_values(kube_node_info,node)",
-        "description": null,
         "error": null,
         "hide": 0,
         "includeAll": true,
@@ -3832,10 +3851,7 @@
         "multi": false,
         "name": "Node",
         "options": [],
-        "query": {
-          "query": "label_values(kube_node_info,node)",
-          "refId": "RANCHER_MONITORING-Node-Variable-Query"
-        },
+        "query": "label_values(kube_node_info,node)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -3855,18 +3871,13 @@
         },
         "datasource": "RANCHER_MONITORING",
         "definition": "label_values(kube_namespace_labels, label_monitoring_pandaria_io_project_name)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "项目",
         "multi": false,
         "name": "ProjectName",
         "options": [],
-        "query": {
-          "query": "label_values(kube_namespace_labels, label_monitoring_pandaria_io_project_name)",
-          "refId": "RANCHER_MONITORING-ProjectName-Variable-Query"
-        },
+        "query": "label_values(kube_namespace_labels, label_monitoring_pandaria_io_project_name)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -3886,7 +3897,6 @@
         },
         "datasource": "RANCHER_MONITORING",
         "definition": "label_values(kube_namespace_labels{label_monitoring_pandaria_io_project_name=~\"$ProjectName\"},namespace)",
-        "description": null,
         "error": null,
         "hide": 0,
         "includeAll": true,
@@ -3894,10 +3904,7 @@
         "multi": false,
         "name": "Namespace",
         "options": [],
-        "query": {
-          "query": "label_values(kube_namespace_labels{label_monitoring_pandaria_io_project_name=~\"$ProjectName\"},namespace)",
-          "refId": "RANCHER_MONITORING-Namespace-Variable-Query"
-        },
+        "query": "label_values(kube_namespace_labels{label_monitoring_pandaria_io_project_name=~\"$ProjectName\"},namespace)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -3917,7 +3924,6 @@
         },
         "datasource": "RANCHER_MONITORING",
         "definition": "label_values(kube_pod_container_info{namespace=~\"$Namespace\"},container)",
-        "description": null,
         "error": null,
         "hide": 0,
         "includeAll": true,
@@ -3925,10 +3931,7 @@
         "multi": false,
         "name": "Container",
         "options": [],
-        "query": {
-          "query": "label_values(kube_pod_container_info{namespace=~\"$Namespace\"},container)",
-          "refId": "RANCHER_MONITORING-Container-Variable-Query"
-        },
+        "query": "label_values(kube_pod_container_info{namespace=~\"$Namespace\"},container)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -3942,13 +3945,12 @@
       {
         "allValue": "",
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "All",
           "value": "$__all"
         },
         "datasource": "RANCHER_MONITORING",
         "definition": "label_values(kube_pod_container_info{namespace=~\"$Namespace\",container=~\"$Container\"},pod)",
-        "description": null,
         "error": null,
         "hide": 0,
         "includeAll": true,
@@ -3956,10 +3958,7 @@
         "multi": false,
         "name": "Pod",
         "options": [],
-        "query": {
-          "query": "label_values(kube_pod_container_info{namespace=~\"$Namespace\",container=~\"$Container\"},pod)",
-          "refId": "RANCHER_MONITORING-Pod-Variable-Query"
-        },
+        "query": "label_values(kube_pod_container_info{namespace=~\"$Namespace\",container=~\"$Container\"},pod)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
