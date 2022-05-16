@@ -16,7 +16,7 @@
   "editable": true,
   "gnetId": 13105,
   "graphTooltip": 0,
-  "iteration": 1652536673254,
+  "iteration": 1652687156799,
   "links": [],
   "panels": [
     {
@@ -931,7 +931,7 @@
       "pluginVersion": "7.1.5",
       "targets": [
         {
-          "expr": "sum(container_fs_usage_bytes{device=~\"^/dev/.*$\",node=~\"^$Node$\"}) / sum (container_fs_limit_bytes{device=~\"^/dev/.*$\",node=~\"^$Node$\"})",
+          "expr": "(sum(node_filesystem_size_bytes{device=~\"^/dev/.*$\",node=~\"^$Node$\"}) - sum(node_filesystem_avail_bytes{device=~\"^/dev/.*$\",node=~\"^$Node$\"})) / sum (node_filesystem_size_bytes{device=~\"^/dev/.*$\",node=~\"^$Node$\"})",
           "hide": false,
           "instant": true,
           "interval": "",
@@ -939,7 +939,7 @@
           "refId": "C"
         },
         {
-          "expr": "sum (container_fs_usage_bytes{device=~\"^/dev/.*$\",node=~\"^$Node$\"})",
+          "expr": "sum(node_filesystem_size_bytes{device=~\"^/dev/.*$\",node=~\"^$Node$\"}) - sum(node_filesystem_avail_bytes{device=~\"^/dev/.*$\",node=~\"^$Node$\"})",
           "hide": false,
           "instant": true,
           "interval": "",
@@ -947,7 +947,7 @@
           "refId": "A"
         },
         {
-          "expr": "sum(container_fs_limit_bytes{device=~\"^/dev/.*$\",node=~\"^$Node$\"})",
+          "expr": "sum(node_filesystem_size_bytes{device=~\"^/dev/.*$\",node=~\"^$Node$\"})",
           "hide": false,
           "instant": true,
           "interval": "",
@@ -1497,7 +1497,7 @@
           "refId": "Q"
         },
         {
-          "expr": "sum(container_fs_usage_bytes{device=~\"^/dev/.*$\",node=~\"^$Node$\"}) by (node)",
+          "expr": "sum(node_filesystem_size_bytes{device=~\"^/dev/.*$\",node=~\"^$Node$\"}) by (node) - sum(node_filesystem_avail_bytes{device=~\"^/dev/.*$\",node=~\"^$Node$\"}) by (node)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1505,7 +1505,7 @@
           "refId": "R"
         },
         {
-          "expr": "sum(container_fs_limit_bytes{device=~\"^/dev/.*$\",node=~\"^$Node$\"}) by (node)",
+          "expr": "sum(node_filesystem_size_bytes{device=~\"^/dev/.*$\",node=~\"^$Node$\"}) by (node)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1513,7 +1513,7 @@
           "refId": "S"
         },
         {
-          "expr": "(sum(container_fs_usage_bytes{device=~\"^/dev/.*$\",node=~\"^$Node$\"}) by (node)) / (sum(container_fs_limit_bytes{device=~\"^/dev/.*$\",node=~\"^$Node$\"})by (node))",
+          "expr": "(sum(node_filesystem_size_bytes{device=~\"^/dev/.*$\",node=~\"^$Node$\"}) by (node) - sum(node_filesystem_avail_bytes{device=~\"^/dev/.*$\",node=~\"^$Node$\"}) by (node)) / (sum(node_filesystem_size_bytes{device=~\"^/dev/.*$\",node=~\"^$Node$\"})by (node))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -3838,7 +3838,7 @@
       {
         "allValue": "",
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "All",
           "value": "$__all"
         },
