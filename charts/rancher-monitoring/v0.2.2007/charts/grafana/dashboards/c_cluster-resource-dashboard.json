@@ -16,7 +16,7 @@
   "editable": true,
   "gnetId": 13105,
   "graphTooltip": 0,
-  "iteration": 1652687156799,
+  "iteration": 1652766539681,
   "links": [],
   "panels": [
     {
@@ -1361,7 +1361,7 @@
       "pluginVersion": "7.1.5",
       "targets": [
         {
-          "expr": "kube_node_status_condition{status=\"true\",node=~\"^$Node$\"} == 1",
+          "expr": "kube_node_status_condition{status=\"true\",node=~\"^$Node$\"}",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2520,11 +2520,12 @@
       "pageSize": null,
       "showHeader": true,
       "sort": {
-        "col": 22,
-        "desc": true
+        "col": 12,
+        "desc": false
       },
       "styles": [
         {
+          "$$hashKey": "object:202",
           "alias": "Time",
           "align": "auto",
           "dateFormat": "YYYY-MM-DD HH:mm:ss",
@@ -2532,6 +2533,7 @@
           "type": "hidden"
         },
         {
+          "$$hashKey": "object:203",
           "alias": "容器名",
           "align": "auto",
           "colorMode": null,
@@ -2549,6 +2551,7 @@
           "unit": "short"
         },
         {
+          "$$hashKey": "object:204",
           "alias": "Pod名",
           "align": "auto",
           "colorMode": null,
@@ -2566,6 +2569,7 @@
           "unit": "short"
         },
         {
+          "$$hashKey": "object:205",
           "alias": "CPU%",
           "align": "auto",
           "colorMode": "cell",
@@ -2586,6 +2590,7 @@
           "unit": "percent"
         },
         {
+          "$$hashKey": "object:206",
           "alias": "CPU需求",
           "align": "auto",
           "colorMode": null,
@@ -2603,6 +2608,7 @@
           "unit": "short"
         },
         {
+          "$$hashKey": "object:207",
           "alias": "CPU限制",
           "align": "auto",
           "colorMode": null,
@@ -2620,7 +2626,8 @@
           "unit": "short"
         },
         {
-          "alias": "WSS",
+          "$$hashKey": "object:208",
+          "alias": "内存(WSS)",
           "align": "auto",
           "colorMode": null,
           "colors": [
@@ -2637,6 +2644,7 @@
           "unit": "bytes"
         },
         {
+          "$$hashKey": "object:209",
           "alias": "内存需求",
           "align": "auto",
           "colorMode": null,
@@ -2654,6 +2662,7 @@
           "unit": "bytes"
         },
         {
+          "$$hashKey": "object:210",
           "alias": "内存限制",
           "align": "auto",
           "colorMode": null,
@@ -2671,6 +2680,7 @@
           "unit": "bytes"
         },
         {
+          "$$hashKey": "object:211",
           "alias": "命名空间",
           "align": "auto",
           "colorMode": null,
@@ -2688,6 +2698,7 @@
           "unit": "short"
         },
         {
+          "$$hashKey": "object:212",
           "alias": "状态",
           "align": "auto",
           "colorMode": null,
@@ -2706,6 +2717,7 @@
           "valueMaps": []
         },
         {
+          "$$hashKey": "object:213",
           "alias": "重启",
           "align": "auto",
           "colorMode": "cell",
@@ -2726,7 +2738,8 @@
           "unit": "short"
         },
         {
-          "alias": "WSS%",
+          "$$hashKey": "object:214",
+          "alias": "内存%(WSS)",
           "align": "",
           "colorMode": "cell",
           "colors": [
@@ -2746,6 +2759,7 @@
           "unit": "percent"
         },
         {
+          "$$hashKey": "object:215",
           "alias": "磁盘使用",
           "align": "auto",
           "colorMode": "cell",
@@ -2766,7 +2780,8 @@
           "unit": "bytes"
         },
         {
-          "alias": "RSS",
+          "$$hashKey": "object:216",
+          "alias": "内存(RSS)",
           "align": "auto",
           "colorMode": null,
           "colors": [
@@ -2783,7 +2798,8 @@
           "unit": "bytes"
         },
         {
-          "alias": "RSS%",
+          "$$hashKey": "object:217",
+          "alias": "内存%(RSS)",
           "align": "auto",
           "colorMode": "cell",
           "colors": [
@@ -2803,6 +2819,7 @@
           "unit": "percent"
         },
         {
+          "$$hashKey": "object:218",
           "alias": "heap",
           "align": "auto",
           "colorMode": null,
@@ -2820,6 +2837,7 @@
           "unit": "bytes"
         },
         {
+          "$$hashKey": "object:219",
           "alias": "heap_max",
           "align": "auto",
           "colorMode": null,
@@ -2837,6 +2855,7 @@
           "unit": "bytes"
         },
         {
+          "$$hashKey": "object:220",
           "alias": "noheap",
           "align": "auto",
           "colorMode": null,
@@ -2854,6 +2873,7 @@
           "unit": "bytes"
         },
         {
+          "$$hashKey": "object:221",
           "alias": "noheap_max",
           "align": "auto",
           "colorMode": null,
@@ -2871,6 +2891,7 @@
           "unit": "bytes"
         },
         {
+          "$$hashKey": "object:222",
           "alias": "CPU使用",
           "align": "auto",
           "colorMode": null,
@@ -2888,6 +2909,7 @@
           "unit": "short"
         },
         {
+          "$$hashKey": "object:223",
           "alias": "",
           "align": "right",
           "colorMode": null,
@@ -3059,6 +3081,64 @@
       "timeShift": null,
       "title": "Pod资源明细",
       "transform": "table",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "Value #Q",
+                "Value #B",
+                "Value #C",
+                "Value #I",
+                "Value #D",
+                "Value #L",
+                "Value #K",
+                "Value #E",
+                "Value #F",
+                "Value #J",
+                "namespace",
+                "Value #H",
+                "container",
+                "pod",
+                "Value #A"
+              ]
+            }
+          }
+        },
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {
+              "Value #A": 3,
+              "Value #B": 5,
+              "Value #C": 6,
+              "Value #D": 8,
+              "Value #E": 11,
+              "Value #F": 12,
+              "Value #H": 14,
+              "Value #I": 7,
+              "Value #J": 13,
+              "Value #K": 10,
+              "Value #L": 9,
+              "Value #Q": 4,
+              "container": 1,
+              "namespace": 0,
+              "pod": 2
+            },
+            "renameByName": {
+              "container": "容器名",
+              "namespace": "命名空间",
+              "pod": "Pod名"
+            }
+          }
+        }
+      ],
       "type": "table-old"
     },
     {
@@ -3945,7 +4025,7 @@
       {
         "allValue": "",
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "All",
           "value": "$__all"
         },
