@@ -16,7 +16,7 @@
   "editable": true,
   "gnetId": 13105,
   "graphTooltip": 0,
-  "iteration": 1652766539681,
+  "iteration": 1652922560456,
   "links": [],
   "panels": [
     {
@@ -1361,7 +1361,7 @@
       "pluginVersion": "7.1.5",
       "targets": [
         {
-          "expr": "kube_node_status_condition{status=\"true\",node=~\"^$Node$\"}",
+          "expr": "kube_node_status_condition{condition=\"Ready\",status=\"true\",node=~\"^$Node$\"}",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1656,6 +1656,7 @@
       },
       "styles": [
         {
+          "$$hashKey": "object:158",
           "alias": "Time",
           "align": "auto",
           "dateFormat": "YYYY-MM-DD HH:mm:ss",
@@ -1663,7 +1664,8 @@
           "type": "hidden"
         },
         {
-          "alias": "Workload",
+          "$$hashKey": "object:159",
+          "alias": "容器名",
           "align": "auto",
           "colorMode": null,
           "colors": [
@@ -1680,6 +1682,7 @@
           "unit": "short"
         },
         {
+          "$$hashKey": "object:160",
           "alias": "Pod名称",
           "align": "auto",
           "colorMode": null,
@@ -1697,6 +1700,7 @@
           "unit": "short"
         },
         {
+          "$$hashKey": "object:161",
           "alias": "总CPU%",
           "align": "auto",
           "colorMode": "cell",
@@ -1718,6 +1722,7 @@
           "unit": "percent"
         },
         {
+          "$$hashKey": "object:162",
           "alias": "总CPU需求",
           "align": "auto",
           "colorMode": null,
@@ -1735,6 +1740,7 @@
           "unit": "short"
         },
         {
+          "$$hashKey": "object:163",
           "alias": "总CPU限制",
           "align": "auto",
           "colorMode": null,
@@ -1752,6 +1758,7 @@
           "unit": "short"
         },
         {
+          "$$hashKey": "object:164",
           "alias": "总内存使用(WSS)",
           "align": "auto",
           "colorMode": null,
@@ -1769,6 +1776,7 @@
           "unit": "bytes"
         },
         {
+          "$$hashKey": "object:165",
           "alias": "总内存需求",
           "align": "auto",
           "colorMode": null,
@@ -1786,6 +1794,7 @@
           "unit": "bytes"
         },
         {
+          "$$hashKey": "object:166",
           "alias": "总内存限制",
           "align": "auto",
           "colorMode": null,
@@ -1803,6 +1812,7 @@
           "unit": "bytes"
         },
         {
+          "$$hashKey": "object:167",
           "alias": "节点",
           "align": "auto",
           "colorMode": null,
@@ -1820,6 +1830,7 @@
           "unit": "short"
         },
         {
+          "$$hashKey": "object:168",
           "alias": "平均内存%(WSS)",
           "align": "",
           "colorMode": "cell",
@@ -1840,6 +1851,7 @@
           "unit": "percent"
         },
         {
+          "$$hashKey": "object:169",
           "alias": "总磁盘使用",
           "align": "auto",
           "colorMode": "cell",
@@ -1860,6 +1872,7 @@
           "unit": "bytes"
         },
         {
+          "$$hashKey": "object:170",
           "alias": "容器数",
           "align": "auto",
           "colorMode": null,
@@ -1877,6 +1890,7 @@
           "unit": "short"
         },
         {
+          "$$hashKey": "object:171",
           "alias": "平均内存%(RSS)",
           "align": "auto",
           "colorMode": "cell",
@@ -1897,6 +1911,7 @@
           "unit": "percent"
         },
         {
+          "$$hashKey": "object:172",
           "alias": "总内存使用(RSS) ",
           "align": "auto",
           "colorMode": null,
@@ -1914,6 +1929,7 @@
           "unit": "bytes"
         },
         {
+          "$$hashKey": "object:173",
           "alias": "总CPU使用",
           "align": "auto",
           "colorMode": null,
@@ -1931,6 +1947,7 @@
           "unit": "short"
         },
         {
+          "$$hashKey": "object:174",
           "alias": "",
           "align": "right",
           "colorMode": null,
