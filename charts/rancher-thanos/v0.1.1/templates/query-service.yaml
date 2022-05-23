@@ -25,6 +25,7 @@ spec:
     release: {{ .Release.Name }}
     component: query
 ---
+{{- if .Values.clusterIds }}
 {{- range $clusterId := (split ":" .Values.clusterIds) }}
 apiVersion: v1
 kind: Service
@@ -40,4 +41,6 @@ spec:
     component: query
 ---
 {{- end }}
+{{- end }} 
+
 
