@@ -55,7 +55,7 @@ grafana:
 thanos:
   image:
     repository: cnrancher/thanos
-    tag: v0.24.0
+    tag: v0.27.0
     pullPolicy: IfNotPresent
     proxy:
       repository: cnrancher/nginx
