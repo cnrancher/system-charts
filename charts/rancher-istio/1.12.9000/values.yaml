@@ -17,7 +17,7 @@ base:
 pilot:
   enabled: false
   repository: cnrancher/istio-pilot
-  tag: "1.12.7"
+  tag: "1.12.9"
 
 #
 # gateway configure
@@ -142,7 +142,7 @@ global:
   hub: gcr.io/istio-testing
 
   # Default tag for Istio images.
-  tag: "1.12.7"
+  tag: "1.12.9"
 
   # Specify image pull policy if default behavior isn't desired.
   # Default behavior: latest images will be Always else IfNotPresent.
@@ -178,7 +178,7 @@ global:
 
   proxy:
     repository: cnrancher/istio-proxyv2
-    tag: "1.12.7"
+    tag: "1.12.9"
 
     # This controls the 'policy' in the sidecar injector.
     autoInject: enabled
@@ -389,7 +389,7 @@ global:
   proxy_init:
     # Base name for the proxy_init container, used to configure iptables.
     repository: cnrancher/istio-proxyv2
-    tag: "1.12.7"
+    tag: "1.12.9"
     resources:
       limits:
         cpu: 2000m
