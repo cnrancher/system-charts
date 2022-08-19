@@ -1,0 +1,21 @@
+{{- if and (eq .Values.global.clusterName "local") (.Values.tokenSecret.name) }}
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: rancher-metrics
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+  name: access-rancher-metrics
+  namespace: cattle-system
+spec:
+  ports:
+    - name: metrics443
+      port: 443
+      protocol: TCP
+      targetPort: 443
+  selector:
+    app: rancher
+  type: ClusterIP
+{{- end }}
