@@ -8,6 +8,22 @@ metadata:
     release: {{ .Release.Name }}
   name: {{ template "app.provisionings.fullname" . }}
 data:
+  grafana.ini: |+
+    [users]
+    allow_sign_up = false
+    auto_assign_org = true
+    auto_assign_org_role = Editor
+
+    [auth.proxy]
+    enabled = true
+    header_name = X-Rancher-User
+    header_property = username
+    auto_sign_up = true
+
+    [log.console]
+    level = debug
+
+
   dashboards.yaml: |+
     - name: RANCHER_MONITORING
       orgId: 1
@@ -25,6 +41,16 @@ data:
       updateIntervalSeconds: 0 #never
       options:
         path: /var/lib/grafana/rancher-istio-dashboards
+{{- if eq .Values.global.clusterName "local" }}
+    - name: RANCHER_METRICS_MONITORING
+      orgId: 3
+      folder: 'rancher'
+      type: file
+      disableDeletion: false
+      updateIntervalSeconds: 0 #never
+      options:
+        path: /var/lib/grafana/rancher-metrics-dashboards
+{{- end }}
 
 
   datasources.yaml: |+

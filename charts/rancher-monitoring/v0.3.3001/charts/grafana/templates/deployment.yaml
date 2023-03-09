@@ -16,38 +16,13 @@ spec:
       release: {{ .Release.Name }}
   template:
     metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/dashboards-configmap.yaml") . | sha256sum }}
       labels:
         app: {{ template "app.name" . }}
         chart: {{ template "app.version" . }}
         release: {{ .Release.Name }}
     spec:
-      initContainers:
-      - name: grafana-init-plugin-json-copy
-        image: {{ template "system_default_registry" . }}{{ .Values.image.repository }}:{{ .Values.image.tag }}
-        {{- if and .Values.resources .Values.resources.inits }}
-        resources:
-{{ toYaml .Values.resources.inits | indent 10 }}
-        {{- end }}
-        volumeMounts:
-        - name: grafana-nginx
-          mountPath: /run.sh
-          subPath: copy-datasource-plugin-json.sh
-        - name: grafana-static-contents
-          mountPath: /host
-      - name: grafana-init-plugin-json-modify
-        image: {{ template "system_default_registry" . }}{{ .Values.image.tool.repository }}:{{ .Values.image.tool.tag }}
-        command:
-        - /run.sh
-        {{- if and .Values.resources .Values.resources.inits }}
-        resources:
-{{ toYaml .Values.resources.inits | indent 10 }}
-        {{- end }}
-        volumeMounts:
-        - name: grafana-nginx
-          mountPath: /run.sh
-          subPath: modify-datasource-plugin-json.sh
-        - name: grafana-static-contents
-          mountPath: /host
       containers:
       - name: grafana
         image: {{ template "system_default_registry" . }}{{ .Values.image.repository }}:{{ .Values.image.tag }}
@@ -62,9 +37,6 @@ spec:
         volumeMounts:
         - name: grafana-storage
           mountPath: /var/lib/grafana
-        - name: grafana-static-contents
-          mountPath: /usr/share/grafana/public/app/plugins/datasource/prometheus/plugin.json
-          subPath: grafana/plugin.json
         - name: grafana-dashboards
           mountPath: /var/lib/grafana/rancher-dashboards
         - name: grafana-istio-dashboards
@@ -75,6 +47,13 @@ spec:
         - name: grafana-provisionings
           mountPath: /etc/grafana/provisioning/datasources/all.yaml
           subPath: datasources.yaml
+        - name: grafana-provisionings
+          mountPath: /etc/grafana/grafana.ini
+          subPath: grafana.ini
+{{- if eq .Values.global.clusterName "local" }}
+        - name: grafana-rancher-dashboards
+          mountPath: /var/lib/grafana/rancher-metrics-dashboards
+{{- end }}
         ports:
         - name: web
           containerPort: 3000
@@ -136,12 +115,14 @@ spec:
         runAsGroup: 472
         fsGroup: 472
       volumes:
-      - name: grafana-static-contents
-        emptyDir: {}
       - name: grafana-storage
         {{- if or .Values.storageSpec .Values.persistence.enabled }}
         persistentVolumeClaim:
+          {{- if .Values.persistence.existingClaim }}
+          claimName: {{ .Values.persistence.existingClaim }}
+          {{- else }}
           claimName: {{ template "app.fullname" . }}
+          {{- end }}
         {{- else }}
         emptyDir: {}
         {{- end }}
@@ -152,12 +133,6 @@ spec:
           - key: nginx.conf
             mode: 438
             path: nginx.conf
-          - key: copy-datasource-plugin-json.sh
-            mode: 0777
-            path: copy-datasource-plugin-json.sh
-          - key: modify-datasource-plugin-json.sh
-            mode: 0777
-            path: modify-datasource-plugin-json.sh
       - name: grafana-dashboards
         configMap:
           name: {{ template "app.dashboards.fullname" . }}
@@ -169,3 +144,8 @@ spec:
           name: {{ template "app.provisionings.fullname" . }}
       - name: nginx-home
         emptyDir: {}
+{{- if eq .Values.global.clusterName "local" }}
+      - name: grafana-rancher-dashboards
+        configMap:
+          name: {{ template "app.dashboards.rancher-fullname" . }}
+{{- end }}

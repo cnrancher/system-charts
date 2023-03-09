@@ -28,6 +28,22 @@ spec:
     {{ (index $pair 0) }}: ""
     {{- end }}
     {{- end }}
+  {{ if .Values.clusterAdvertiseAddress -}}
+  clusterAdvertiseAddress: {{ .Values.clusterAdvertiseAddress }}
+  {{- end }} 
+  {{ if .Values.additionalPeers -}}
+  additionalPeers:
+{{ toYaml .Values.additionalPeers | indent 2 }}
+  {{- end }}  
+  {{ if .Values.clusterPeerTimeout -}}
+  clusterPeerTimeout: {{ .Values.clusterPeerTimeout }}
+  {{- end }}  
+  {{ if .Values.clusterGossipInterval -}}
+  clusterGossipInterval: {{ .Values.clusterGossipInterval }}
+  {{- end }}  
+  {{ if .Values.clusterPushpullInterval -}}
+  clusterPushpullInterval: {{ .Values.clusterPushpullInterval }}
+  {{- end }}  
   paused: {{ .Values.paused }}
   replicas: {{ .Values.replicaCount }}
   logLevel:  {{ .Values.logLevel }}
@@ -77,7 +93,7 @@ spec:
               app: {{ template "app.name" . }}
               alertmanager: {{ .Release.Name }}
   tolerations:
-{{- include "linux-node-tolerations" . | nindent 8 }}
+{{- include "linux-node-tolerations" . | nindent 4 }}
 {{- if .Values.tolerations }}
 {{ toYaml .Values.tolerations | indent 4 }}
 {{- end }}

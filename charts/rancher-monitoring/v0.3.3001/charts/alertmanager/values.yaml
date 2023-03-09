@@ -42,7 +42,7 @@ paused: false
 
 ## Number of Alertmanager replicas desired
 ##
-replicaCount: 1
+replicaCount: 3
 
 ## How long to retain metrics
 ##

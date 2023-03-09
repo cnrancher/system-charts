@@ -72,6 +72,17 @@ rules:
   - tokenreviews
   verbs:
   - "create"
+- apiGroups:
+  - rbac.authorization.k8s.io
+  resources:
+  - roles
+  - clusterroles
+  - rolebindings
+  - clusterrolebindings
+  verbs:
+  - "list"
+  - "watch"
+  - "get"
 
 ---
 apiVersion: {{ template "rbac_api_version" . }}
