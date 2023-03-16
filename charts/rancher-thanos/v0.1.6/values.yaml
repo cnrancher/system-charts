@@ -17,12 +17,12 @@ grafana:
   enabled: false
   apiGroup: "monitoring.coreos.com"
   image:
-    repository: rancher/grafana-grafana
-    tag: 7.1.5
+    repository: cnrancher/mirrored-grafana-grafana
+    tag: 9.4.3
     pullPolicy: IfNotPresent
     proxy:
-      repository: cnrancher/nginx
-      tag: 1.21.6
+      repository: cnrancher/mirrored-nginx
+      tag: 1.23.3
   nodeSelector: {}
   resources:
     core:
@@ -55,11 +55,11 @@ grafana:
 thanos:
   image:
     repository: cnrancher/mirrored-thanos-thanos
-    tag: v0.27.0
+    tag: v0.30.1
     pullPolicy: IfNotPresent
     proxy:
-      repository: cnrancher/nginx
-      tag: 1.21.6
+      repository: cnrancher/mirrored-nginx
+      tag: 1.23.3
   # See https://thanos.io/storage.md/
   objectConfig: {}
 
@@ -125,7 +125,7 @@ ui:
   replicaCount: 1
   image:
     repository: cnrancher/global-monitoring-ui
-    tag: 0.1.1
+    tag: 0.1.2
     pullPolicy: IfNotPresent
   resources:
     limits:
