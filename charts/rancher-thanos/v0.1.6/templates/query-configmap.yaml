@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: thanos-query-stores
+  labels:
+    app: {{ template "app.fullname" . }}
+    chart: {{ .Chart.Name }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+data:
+  thanos-store.yml: |-
+    - targets:
+      {{- if .Values.clusterIds }}
+      {{- range $clusterId := (split ":" .Values.clusterIds) }}
+      - {{ $clusterId }}:80
+      {{- end }}
+      {{- end }}
+      {{- if .Values.thanos.store.enabled }}
+      - thanos-store-{{ .Release.Name }}:10901
+      {{- end }}
