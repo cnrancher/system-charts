@@ -4,8 +4,8 @@ labels: {}
 ## Log Aggregator container image
 ##
 image:
-  repository: rancher/log-aggregator
-  tag: v0.1.8
+  repository: cnrancher/log-aggregator
+  tag: v0.1.8-ent
 
 nodeSelector: {}
 
