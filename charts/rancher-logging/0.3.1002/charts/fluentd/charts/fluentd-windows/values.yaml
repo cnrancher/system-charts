@@ -4,7 +4,7 @@ labels: {}
 image:
   os: windows
   repository: cnrancher/fluentd
-  tag: v0.1.30-ent
+  tag: v0.1.30-ent3
   pullPolicy: IfNotPresent
 
 resources: {}
@@ -46,7 +46,7 @@ configmapReload:
   name: reloader
   image:
     os: windows
-    repository: rancher/configmap-reload
-    tag: v0.3.0-rancher4
+    repository: cnrancher/jimmidyson-configmap-reload
+    tag: v0.7.1
     pullPolicy: IfNotPresent
   resources: {}
