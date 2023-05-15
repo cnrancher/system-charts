@@ -267,7 +267,7 @@ grafana:
     tag: 7.5.8
     tool:
       repository: cnrancher/prometheus-auth
-      tag: v0.3.3-ent3
+      tag: v0.3.3-ent4
     proxy:
       repository: rancher/mirrored-library-nginx
       tag: 1.21.1-alpine
@@ -328,13 +328,13 @@ prometheus:
     tag: v2.18.2
     auth:
       repository: cnrancher/prometheus-auth
-      tag: v0.3.3-ent3
+      tag: v0.3.3-ent4
     proxy:
       repository: rancher/mirrored-library-nginx
       tag: 1.21.1-alpine
     thanos:
-      repository: rancher/mirrored-thanosio-thanos
-      tag: v0.21.1
+      repository: cnrancher/mirrored-thanos-thanos
+      tag: v0.30.1
   nodeSelectors: []
   resources:
     core:
