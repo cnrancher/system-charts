@@ -147,3 +147,4 @@ ui:
 
 global:
   systemDefaultRegistry: ""
+  clusterId: ""
