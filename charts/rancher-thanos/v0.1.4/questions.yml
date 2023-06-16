@@ -1,3 +1,5 @@
 labels:
   rancher.thanos.v0.1.4: 0.27.0
 rancher_min_version: 2.3.0-rc1
+rancher_max_version: 2.6.99
+
